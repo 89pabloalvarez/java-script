@@ -1,4 +1,4 @@
-[
+export const usuarios = [
   {
     "id": 1,
     "usuario": "admin",
@@ -8,7 +8,7 @@
     "activo": true
   },
   {
-    "id": 22,
+    "id": 2,
     "usuario": "jgarcia",
     "rol": "editor",
     "email": "jgarcia@empresa.com",
@@ -16,7 +16,7 @@
     "activo": true
   },
   {
-    "id": 333,
+    "id": 3,
     "usuario": "mmartinez",
     "rol": "visualizador",
     "email": "mmartinez@empresa.com",
