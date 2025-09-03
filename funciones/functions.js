@@ -2,13 +2,18 @@ import { usuarios } from '../DB/usuarios.js'
 import { rolesValidos } from '../DB/roles.js'
 
 export function inputUsuario(nuevoUsuario) {
-    let usuario = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nIngrese el nombre de usuario:`)
-    //Valido que el usuario no exista en la "base de datos".
-    while (validarUsuarioExistente(usuario)) {
+    let usuario = "";
+    do {
+        usuario = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nIngrese el nombre de usuario:`)?.trim();
+    if (usuario === "") {
+        alert(`El nombre de usuario no puede estar vacío. Intente nuevamente.`)
+    } else if (validarUsuarioExistente(usuario)) {
         alert(`El usuario "${usuario}" ya existe. Por favor, ingrese un nombre de usuario diferente.`)
         usuario = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nIngrese el nombre de usuario:`)
     }
-    return usuario
+  } while (usuario === "" || validarUsuarioExistente(usuario));
+
+  return usuario;
 }
 
 export function inputEmail(nuevoUsuario) {
