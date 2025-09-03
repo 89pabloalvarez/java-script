@@ -1,24 +1,9 @@
 /*
 Defino variables y constantes globales.
 */
-let clientes = [];
-let usuarios = [];
+import { usuarios } from './DB/usuarios.js';
+let continuar;
 const rolesValidos = ["administrador", "editor", "visualizador"];
-
-//Uso fetch para llamar los archivos JSON y guardarlos en las variables correspondientes.
-fetch('./DB/clientes.json')
-  .then(res => res.json())
-  .then(data => {
-    clientes = data;
-    console.log('La lista original de clientes es:', clientes);
-  });
-
-fetch('./DB/usuarios.json')
-  .then(res => res.json())
-  .then(data => {
-    usuarios = data;
-    console.log('la lista origianl de usuarios es:', usuarios);
-  });
 
 //Función para agregar un nuevo usuario a la "base de datos".
 function agregarNuevoUsuario() {
@@ -32,6 +17,11 @@ function agregarNuevoUsuario() {
 
   alert("Vamos a agregar un nuevo usuario. \nPor favor, ingrese los datos solicitados.");
   nuevoUsuario.usuario = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nIngrese el nombre de usuario:`);
+  //Valido que el usuario no exista en la "base de datos".
+  while (validarUsuarioExistente(nuevoUsuario.usuario)) {
+    alert(`El usuario "${nuevoUsuario.usuario}" ya existe. Por favor, ingrese un nombre de usuario diferente.`);
+    nuevoUsuario.usuario = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nIngrese el nombre de usuario:`);
+  }
   //HTML tiene la validación del campo email, aca vamos a validar que al menos tenga un "@" y un ".".
   while (!nuevoUsuario.email.includes("@") || !nuevoUsuario.email.includes(".")) {
     nuevoUsuario.email = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nEl formato correcto es: "correo@electronico.com"\n\nIngrese el correo electrónico:`);
@@ -64,19 +54,18 @@ function agregarNuevoUsuario() {
   nuevoUsuario.id = usuarios.length + 1;
   alert(`¿confirma los datos ingresados?: \n\nUsuario: ${nuevoUsuario.usuario}\nEmail: ${nuevoUsuario.email}\nRol: ${nuevoUsuario.rol}\nContraseña: ${"*".repeat(nuevoUsuario.contraseña.length)}\n\nPresione Aceptar para confirmar o Cancelar para abortar.`);
   usuarios.push(nuevoUsuario);
-  mostrarUsuarios();
+  mostrarUsuariosEnConsola();
 }
 
-function mostrarUsuarios() {
-  console.log('La lista actualizada de usuarios es:', usuarios);
-}
+
 
 // Ejecución del main.
-alert("Bienvenido al sistema de ABM de Usuarios. \nRecuerde abrir la consola para ver datos que no se visualizan en el front.");
-const continuar = confirm("¿Desea agregar un nuevo usuario?");
+alert("Bienvenido al sistema de ABM de Usuarios.");
+continuar = confirm("¿Desea agregar un nuevo usuario?");
 if (continuar) {
+    startDB()
+    mostrarUsuariosEnConsola()
     agregarNuevoUsuario();
 } else {
-    alert("Operación de alta de usuario cancelada.");
+    alert("Operación de Alta de usuario cancelada.");
 }
-
