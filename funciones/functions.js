@@ -1,6 +1,11 @@
 import { usuarios } from '../DB/usuarios.js'
 import { rolesValidos } from '../DB/roles.js'
 
+//
+// FUNCIONES EXTERNAS
+//
+
+//Función para ingresar y validar el nombre de usuario del nuevo usuario.
 export function inputUsuario(nuevoUsuario) {
     let usuario = "";
     do {
@@ -15,7 +20,7 @@ export function inputUsuario(nuevoUsuario) {
 
   return usuario;
 }
-
+//Función para ingresar y validar el email del nuevo usuario.
 export function inputEmail(nuevoUsuario) {
     let email = ""
     do {
@@ -30,7 +35,7 @@ export function inputEmail(nuevoUsuario) {
     } while (!validarInputNoVacio(email) || !validarFormatoEmail(email) || validarEmailExistente(email))
     return email
 }
-
+//Función para ingresar y validar el rol del nuevo usuario.
 export function inputRol(nuevoUsuario) {
     let rol = ""
     do {
@@ -43,7 +48,7 @@ export function inputRol(nuevoUsuario) {
     } while (!validarInputNoVacio(rol) || !validarRol(rol))
   return rol
 }
-
+//Función para ingresar y confirmar la contraseña del nuevo usuario.
 export function inputContraseña(nuevoUsuario) {
     let contraseña = ""
     let confirmacionContraseña = ""
@@ -59,11 +64,27 @@ export function inputContraseña(nuevoUsuario) {
     alert("Contraseña confirmada correctamente.")
     return contraseña
 }
-
+//Función para obtener el próximo ID de usuario.
 export function nextIdUsuario() {
     //si no hay usuarios devolvemos 1, sino el maximo id + 1.
     return usuarios.length === 0 ? 1 : Math.max(...usuarios.map(user => user.id)) + 1
 }
+
+//Funciones para mostrar la lista de usuarios.
+export function mostrarUsuariosEnConsola() {
+    console.log('la lista actual de usuarios en la "DB" es:', usuarios)
+}
+export function mostrarUsuariosEnPantalla() {
+    let listaUsuarios = "Lista de usuarios:\n\n"
+    usuarios.forEach(user => {
+        listaUsuarios += `ID: ${user.id} | Usuario: ${user.usuario} | Email: ${user.email} | Rol: ${user.rol}\n`
+    })
+    alert(listaUsuarios)
+}
+
+//
+// FUNCIONES INTERNAS
+//
 
 function validarInputNoVacio(input) {
   return typeof input === "string" && input.trim().length > 0;
@@ -83,16 +104,4 @@ function validarEmailExistente(email) {
 
 function validarRol(rol) {
     return rolesValidos.includes(rol)
-}
-
-//Funciones para mostrar la lista de usuarios.
-export function mostrarUsuariosEnConsola() {
-    console.log('la lista actual de usuarios en la "DB" es:', usuarios)
-}
-export function mostrarUsuariosEnPantalla() {
-    let listaUsuarios = "Lista de usuarios:\n\n"
-    usuarios.forEach(user => {
-        listaUsuarios += `ID: ${user.id} | Usuario: ${user.usuario} | Email: ${user.email} | Rol: ${user.rol}\n`
-    })
-    alert(listaUsuarios)
 }
