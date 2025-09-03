@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nombre": "Lucía Fernández",
+    "email": "lucia.fernandez@example.com",
+    "telefono": "+54 11 4567-8901",
+    "activo": true
+  },
+  {
+    "id": 2,
+    "nombre": "Carlos Méndez",
+    "email": "carlos.mendez@example.com",
+    "telefono": "+54 9 351 234-5678",
+    "activo": false
+  },
+  {
+    "id": 3,
+    "nombre": "Sofía Torres",
+    "email": "sofia.torres@example.com",
+    "telefono": "+54 11 7890-1234",
+    "activo": true
+  }
+]
