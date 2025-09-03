@@ -17,6 +17,8 @@ export function inputEmail(nuevoUsuario) {
         email = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nEl formato correcto es: "correo@electronico.com"\n\nIngrese el correo electrónico:`)?.trim()
         if (!validarFormatoEmail(email)) {
             alert(`El Email ingresado: "${email}" es inválido.\nIntente con un formato como éste ejemplo: "correo@electronico.com"`)
+        } else if (validarEmailExistente(email)) {
+            alert(`El Email "${email}" ya existe. Por favor, ingrese un correo electrónico diferente.`)
         }
     } while (!validarFormatoEmail(email))
     return email
@@ -55,12 +57,16 @@ export function nextIdUsuario() {
 }
 
 //Función para validar si el usuario ya existe en la "base de datos".
-function validarUsuarioExistente(nombreUsuario) {
-    return usuarios.some(user => user.usuario.toLowerCase() === nombreUsuario.toLowerCase())
+function validarUsuarioExistente(usuario) {
+    return usuarios.some(user => user.usuario.toLowerCase() === usuario.toLowerCase())
 }
 
 function validarFormatoEmail(email) {
     return email.includes("@") && email.includes(".")
+}
+
+function validarEmailExistente(email) {
+    return usuarios.some(user => user.email.toLowerCase() === email.toLowerCase())
 }
 
 function validarRol(rol) {
