@@ -32,14 +32,16 @@ function agregarNuevoUsuario() {
   if (continuar) {
     usuarios.push(nuevoUsuario)
     alert("Usuario dado de Alta satisfactoriamente.")
-    mostrarUsuariosEnConsola()
+    mostrarUsuariosEnConsola() //Revisar que se agrego el usuario.
   } else {
     alert("Operación de Alta de usuario cancelada.")
-    mostrarUsuariosEnConsola()
+    mostrarUsuariosEnConsola() //Revisar que no se agrego el usuario.
   }
   continuar = confirm("¿Desea ver la lista de usuarios?")
   if (continuar) {
     mostrarUsuariosEnPantalla()
+  } else {
+    mostrarUsuariosEnConsola() //Aunque no quiera verla en pantalla, la mostramos en consola para que pueda ver el resultado.
   }
   continuar = confirm("¿Desea dar de alta otro usuario?")
   if (continuar) {

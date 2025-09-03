@@ -20,6 +20,7 @@ export function inputUsuario(nuevoUsuario) {
 
   return usuario;
 }
+
 //Función para ingresar y validar el email del nuevo usuario.
 export function inputEmail(nuevoUsuario) {
     let email = ""
@@ -35,6 +36,7 @@ export function inputEmail(nuevoUsuario) {
     } while (!validarInputNoVacio(email) || !validarFormatoEmail(email) || validarEmailExistente(email))
     return email
 }
+
 //Función para ingresar y validar el rol del nuevo usuario.
 export function inputRol(nuevoUsuario) {
     let rol = ""
@@ -48,6 +50,7 @@ export function inputRol(nuevoUsuario) {
     } while (!validarInputNoVacio(rol) || !validarRol(rol))
   return rol
 }
+
 //Función para ingresar y confirmar la contraseña del nuevo usuario.
 export function inputContraseña(nuevoUsuario) {
     let contraseña = ""
@@ -64,6 +67,7 @@ export function inputContraseña(nuevoUsuario) {
     alert("Contraseña confirmada correctamente.")
     return contraseña
 }
+
 //Función para obtener el próximo ID de usuario.
 export function nextIdUsuario() {
     //si no hay usuarios devolvemos 1, sino el maximo id + 1.
