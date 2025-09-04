@@ -18,7 +18,8 @@ function agregarNuevoUsuario() {
       usuario: "",
       email: "",
       rol: "",
-      contraseña: ""
+      contraseña: "",
+      activo: true
   }
   //Le avisamos al usuario que vamos a comenzar con el alta.
   alert("Vamos a agregar un nuevo usuario. \nPor favor, ingrese los datos solicitados.")
@@ -46,6 +47,8 @@ function agregarNuevoUsuario() {
   continuar = confirm("¿Desea dar de alta otro usuario?")
   if (continuar) {
     agregarNuevoUsuario()
+  } else {
+    alert("Operación de Alta de usuario finalizada.")
   }
 }
 
