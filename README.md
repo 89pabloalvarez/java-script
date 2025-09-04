@@ -4,7 +4,7 @@ Repositorio creado para presentar las entregas de la comisión: #80845-javascrip
 ### Descripción de la página:
 
 De momento la página "index.html" únicamente ejecuta "main.js" sobre una serie de instrucciones hacia el usuario para dar de alta un nuevo usuario. Se le solicitará datos como un nombre de usuario, un correo electrónico, un rol y una contraseña (que será validada reingresando la misma).
-Se agregó una carpeta "DB" que dentro tiene 2 javaScript que exportan un array de valores (que son los roles) y un array de objetos (que son una serie de usuarios pre-existentes).
+Se agregó una carpeta "DB" que dentro tiene 2 javaScript que exportan un array de valores uno es "roles", que son los roles permitidos y otro que es "usuarios" que consta de array de objetos, en éste caso, son una serie de usuarios pre-existentes.
 Se agruparon las funciones dentro de la carpeta "funciones" en un archivo denominado "functions.js" para emprolijar minimamente el framework. Dentro se encuentran funciones locales y funciones que se exportan. Las mismas son utilizadas en "main.js".
 El proyecto cuenta con funciones de validación de datos, booleanas, incluso para el ID del nuevo usuario se devuelve un valor de tipo "number".
 Hay reutilización por lo que se cumple con la condición DRY.
