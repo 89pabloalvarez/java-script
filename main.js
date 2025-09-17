@@ -1,4 +1,4 @@
-import { usuarios } from './DB/usuarios.js'
+/*import { usuarios } from './DB/usuarios.js'
 import { 
   mostrarUsuariosEnConsola,
   mostrarUsuariosEnPantalla,
@@ -61,3 +61,7 @@ if (continuar) {
 } else {
     alert("Operación de Alta de usuario cancelada.")
 }
+*/
+
+let contenedor = document.getElementById('contenedor');
+contenedor.innerHTML = '<h2>Meto un H2</h2><p>Meto un Párrafo</p>';

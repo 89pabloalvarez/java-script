@@ -4,8 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Java Script - Main Page</title>
+    <link rel="stylesheet" href="./components/styles/commonStyle.css">
+
 </head>
 <body>
-  <script type="module" src="./main.js"></script>
+  <!--ESTRUCTURA DEL HTML-->
+  <header></header>
+
+  <!--SCRIPTS-->
+  <script type="module">
+    import { renderHeader } from './components/elements/header.js';
+    renderHeader();
+  </script>
+  <script type="module">
+    import { applyStoredTheme, toggleTheme } from './components/utils/changeThemeColor.js';
+    applyStoredTheme();
+    document.getElementById('themeToggleBtn')?.addEventListener('click', toggleTheme);
+  </script>
 </body>
 </html>
