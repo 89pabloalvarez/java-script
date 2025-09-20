@@ -5,21 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Java Script - Main Page</title>
     <link rel="stylesheet" href="./components/styles/commonStyle.css">
-
 </head>
 <body>
-  <!--ESTRUCTURA DEL HTML-->
-  <header></header>
-  <main>sddddddddddddddddddddddddddddddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef</main>
-  <!--SCRIPTS-->
   <script type="module">
-    import { renderHeader } from './components/elements/header.js';
-    renderHeader();
-  </script>
-  <script type="module">
-    import { applyStoredTheme, toggleTheme } from './components/utils/changeThemeColor.js';
-    applyStoredTheme();
-    document.getElementById('themeToggleBtn')?.addEventListener('click', toggleTheme);
+    import { renderLayout } from './components/styles/layout.js';
+    renderLayout();
   </script>
 </body>
 </html>

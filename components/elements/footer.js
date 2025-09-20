@@ -1,7 +1,9 @@
 export function renderFooter() {
-  const footer = document.createElement('footer');
-  footer.innerHTML = `
-    <p>&copy; 2025 Paul Dev Studio</p>
-  `;
-  document.body.appendChild(footer);
+    const footer = document.createElement('footer');
+    footer.innerHTML = `
+        <footer>
+            <p>Página desarrollada en 2025 por Paul Rammone&reg;</p>
+        </footer>
+    `;
+    document.body.appendChild(footer);
 }
