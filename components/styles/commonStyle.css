@@ -1,15 +1,13 @@
 :root {
   --bg-color: #f5f5f5;
   --text-color: #222;
-  --header-bg: #fff;
-  --footer-bg: #eee;
+  --header-footer-bg: #fff;
 }
 
 [data-theme="dark"] {
   --bg-color: #1e1e1e;
   --text-color: #f5f5f5;
-  --header-bg: #2c2c2c;
-  --footer-bg: #2c2c2c;
+  --header-footer-bg: #2c2c2c;
 }
 
 * {
@@ -39,7 +37,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: var(--header-bg);
+  background-color: var(--header-footer-bg);
   padding: 1rem;
 }
 
@@ -49,7 +47,8 @@ main {
 }
 
 footer {
-  background-color: var(--footer-bg);
+  background-color: var(--header-footer-bg);
   padding: 1rem;
   text-align: center;
+  position: sticky;
 }
