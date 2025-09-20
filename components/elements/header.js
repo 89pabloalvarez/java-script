@@ -8,7 +8,7 @@ export function renderHeader() {
   header.innerHTML = `
     <nav class="header-nav">
       <div class="header-left">
-        <button id="header-themeToggleBtn" class="theme-toggle-btn">🌗</button>
+        <button id="header-themeToggleBtn" class="theme-toggle-btn">🌗 Cambiar Color</button>
       </div>
       <div class="header-center">
         <h1 class="header-title">Tablero de Administración</h1>
@@ -22,7 +22,6 @@ export function renderHeader() {
   const styleTag = document.createElement('style');
   styleTag.textContent = headerStyle();
   document.head.appendChild(styleTag);
-
   document.body.appendChild(header);
 
   const toggleBtn = document.getElementById('header-themeToggleBtn');

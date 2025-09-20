@@ -1,16 +1,10 @@
-export function toggleStyle() {
-  return `
-    
-  `;
-}
-
 export function headerStyle() {
   return `
     .site-header {
       width: 100%;
       top: 0;
       z-index: 1000;
-      background-color: var(--header-footer-bg);
+      background-color: var(--header-bg-gradient);
       padding: 1rem;
     }
 
@@ -59,16 +53,16 @@ export function headerStyle() {
     .theme-toggle-btn {
       padding: 0.5rem 1rem;
       background-color: transparent;
-      border: 2px solid var(--text-color);
-      color: var(--text-color);
+      border: 2px solid var(--header-text-color);
+      color: var(--header-text-color);
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     .theme-toggle-btn:hover {
-      background-color: var(--text-color);
-      color: var(--bg-color);
+      background-color: var(--header-bg-gradient);
+      color: var(--header-text-color);
     }
   `;
 }
