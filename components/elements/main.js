@@ -1,3 +1,5 @@
+import { mainStyle } from '../styles/styles.js';
+
 export function renderMain() {
     const main = document.createElement('main');
     main.innerHTML = `
@@ -6,5 +8,10 @@ export function renderMain() {
             Simulación de tabla o contenido ancho/alto
         </div>
     `;
+
+    const styleTag = document.createElement('style');
+    styleTag.textContent = mainStyle();
+    document.head.appendChild(styleTag);
+
     document.body.appendChild(main);
 }

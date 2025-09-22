@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "nombre": "Paul",
+    "apellido": "Rammone",
+    "usuario": "admin",
+    "email": "paul.rammone@mail.com",
+    "contrasenia": "admin",
+    "rol": "administrador",
+    "activo": true
+  },
+  {
+    "id": 2,
+    "nombre": "Lucía",
+    "apellido": "Martínez",
+    "usuario": "lmartinez",
+    "email": "lucia.martinez@mail.com",
+    "contrasenia": "Lucia2025!",
+    "rol": "administrador",
+    "activo": true
+  },
+  {
+    "id": 3,
+    "nombre": "Julián",
+    "apellido": "Pérez",
+    "usuario": "jperez",
+    "email": "julian.perez@mail.com",
+    "contrasenia": "JPerez#89",
+    "rol": "vendedor",
+    "activo": true
+  },
+  {
+    "id": 4,
+    "nombre": "Sofía",
+    "apellido": "Gómez",
+    "usuario": "sgomez",
+    "email": "sofia.gomez@mail.com",
+    "contrasenia": "Sofia_Gmz12",
+    "rol": "supervisor",
+    "activo": true
+  },
+  {
+    "id": 5,
+    "nombre": "Martín",
+    "apellido": "Rodríguez",
+    "usuario": "mrodriguez",
+    "email": "martin.rodriguez@mail.com",
+    "contrasenia": "MRod2025*",
+    "rol": "vendedor",
+    "activo": true
+  },
+  {
+    "id": 6,
+    "nombre": "Carla",
+    "apellido": "Fernández",
+    "usuario": null,
+    "email": "carla.fernandez@mail.com",
+    "contrasenia": "CarlaFz!77",
+    "rol": "supervisor",
+    "activo": true
+  },
+  {
+    "id": 7,
+    "nombre": "Diego",
+    "apellido": "López",
+    "usuario": "dlopez",
+    "email": "diego.lopez@mail.com",
+    "contrasenia": "DL_admin@25",
+    "rol": "administrador",
+    "activo": true
+  },
+  {
+    "id": 8,
+    "nombre": "Valentina",
+    "apellido": "Ruiz",
+    "usuario": "vruiz",
+    "email": "valentina.ruiz@mail.com",
+    "contrasenia": "ValRuiz_!",
+    "rol": "vendedor",
+    "activo": false
+  },
+  {
+    "id": 9,
+    "nombre": "Federico",
+    "apellido": "Torres",
+    "usuario": null,
+    "email": "federico.torres@mail.com",
+    "contrasenia": "FedeT2025#",
+    "rol": "supervisor",
+    "activo": true
+  }
+]
