@@ -2,29 +2,26 @@ export function commonStyle() {
   const style = document.createElement('style');
   style.innerHTML = `
     :root {
-      /* Main */
-      --main-bg-color: #dcdcdc;
-      --main-text-color: #222;
-
-      /* Header */
       --header-bg-gradient: linear-gradient(to right, #d0f0ff, #a3c9f7, #d0f0ff);
       --header-text-color: #222;
 
-      /* Footer */
+      --main-bg-color: #dcdcdc;
+      --main-text-color: #222;
+
       --footer-bg-gradient: linear-gradient(to right, #a3c9f7, #d0f0ff, #a3c9f7);
       --footer-text-color: #222;
+
+      --table-header-bg: #f0f0f0;
+      --table-row-bg: #ffffff;
     }
 
     [data-theme="dark"] {
-      /* Main */
-      --main-bg-color: #1f1f1f;
-      --main-text-color: #f5f5f5;
-
-      /* Header */
       --header-bg-gradient: linear-gradient(to right, #1c3b5f, #0a1f40, #1c3b5f);
       --header-text-color: #f5f5f5;
 
-      /* Footer */
+      --main-bg-color: #1f1f1f;
+      --main-text-color: #f5f5f5;
+
       --footer-bg-gradient: linear-gradient(to right, #0a1f40, #1c3b5f, #0a1f40);
       --footer-text-color: #f5f5f5;
     }
@@ -134,6 +131,38 @@ export function mainStyle() {
       color: var(--main-text-color);
       overflow: auto;
     }
+
+    .main-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--main-text-color);
+    }
+
+    .usuarios-tabla {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: transparent;
+    }
+
+    .tabla-th {
+      background-color: var(--main-bg-color);
+      color: var(--main-text-color);
+      border: 3px solid #999;
+      padding: 0.5rem;
+      text-align: left;
+    }
+
+    .tabla-td {
+      background-color: var(--main-bg-color);
+      color: var(--main-text-color);
+      border: 2px solid #ccc;
+      padding: 0.5rem;
+    }
+
+    #tabla-usuarios {
+      overflow-x: auto;
+    }
+
   `;
 }
 
