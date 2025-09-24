@@ -24,6 +24,44 @@ export function toggleTheme() {
   localStorage.setItem(THEME_KEY, newTheme);
 }
 
+
+
+// Redirige al index.html según entorno (local o GitHub Pages)
+export function goToHome() {
+  const repo = isLocalHost() ? '' : '/' + window.location.pathname.split('/')[1]
+  const targetUrl = `${window.location.origin}${repo}/index.html`
+
+  if (window.location.href !== targetUrl) {
+    window.location.href = targetUrl
+  }
+}
+
+// Devuelve el path absoluto al logo según entorno
+export function getLogo() {
+  const repo = isLocalHost() ? '' : '/' + window.location.pathname.split('/')[1]
+  return `${window.location.origin}${repo}/assets/images/logo_sin_fondo.png`
+}
+
+//
+// FUNCIONES INTERNAS
+//
+
+// Verifico si el entorno es local para diferenciar de githubPages (localhost o IP ###.###.###.###)
+function isLocalHost() {
+  return (
+    window.location.hostname === 'localhost' ||
+    /^(\d{1,3}\.){3}\d{1,3}$/.test(window.location.hostname)
+  )
+}
+
+
+
+
+
+
+
+
+
 //Función para ingresar y validar el nombre de usuario del nuevo usuario.
 export function inputUsuario(nuevoUsuario) {
     let usuario = "";
@@ -105,9 +143,7 @@ export function mostrarUsuariosEnPantalla() {
     alert(listaUsuarios)
 }
 
-//
-// FUNCIONES INTERNAS
-//
+
 
 function validarInputNoVacio(input) {
   return typeof input === "string" && input.trim().length > 0;

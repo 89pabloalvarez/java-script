@@ -1,4 +1,4 @@
-import { toggleTheme } from '../../functions/functions.js'
+import { toggleTheme, goToHome } from '../../functions/functions.js'
 import { headerStyle } from '../styles/styles.js'
 
 export function renderHeader() {
@@ -32,6 +32,9 @@ export function renderHeader() {
   const titulo = document.createElement('h1')
   titulo.classList.add('header-title')
   titulo.textContent = 'Tablero de Administración'
+
+  //Evento para navegar al inicio al hacer click en el título.
+  titulo.addEventListener('click', goToHome)
 
   //Inyectamos el título dentro del bloque central.
   centerDiv.appendChild(titulo)

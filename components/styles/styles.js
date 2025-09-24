@@ -95,13 +95,20 @@ export function headerStyle() {
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
-      pointer-events: none;
+      pointer-events: auto;
     }
 
     .header-title {
       font-size: 1.5rem;
       font-weight: bold;
       margin: 0;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .header-title:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
     }
 
     .theme-toggle-btn {
@@ -121,6 +128,7 @@ export function headerStyle() {
     }
   `;
 }
+
 
 export function mainStyle() {
   return `
@@ -189,17 +197,57 @@ export function mainStyle() {
 
 export function footerStyle() {
   return `
-    footer {
+    .site-footer {
       width: 100%;
       height: 80px;
       background: var(--footer-bg-gradient);
       color: var(--footer-text-color);
-      text-align: center;
-      position: sticky;
-      bottom: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: sticky;
+      bottom: 0;
+      z-index: 1000;
     }
-  `;
+
+    .footer-nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+    }
+
+    .footer-left,
+    .footer-center,
+    .footer-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-left {
+      justify-content: flex-start;
+    }
+
+    .footer-center {
+      justify-content: center;
+      text-align: center;
+    }
+
+    .footer-right {
+      justify-content: flex-end;
+    }
+
+    .footer-logo {
+      height: 60px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .footer-center p {
+      margin: 0;
+      font-size: 1rem;
+    }
+  `
 }
