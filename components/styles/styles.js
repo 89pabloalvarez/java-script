@@ -251,3 +251,64 @@ export function footerStyle() {
     }
   `
 }
+
+// Estilos para distintas páginas:
+
+export function createUserStyle() {
+  return `
+    .main-title {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--main-text-color);
+    }
+
+    .form-crear-usuario {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+      background-color: var(--main-bg-color);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: var(--main-text-color);
+    }
+
+    .form-group input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid var(--header-text-color);
+      border-radius: 4px;
+      background-color: var(--table-row-bg);
+      color: var(--main-text-color);
+    }
+
+    .form-crear-usuario button[type="submit"] {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background-color: var(--header-bg-gradient);
+      color: var(--header-text-color);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      align-self: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-crear-usuario button[type="submit"]:hover {
+      opacity: 0.9;
+    }
+  `
+}

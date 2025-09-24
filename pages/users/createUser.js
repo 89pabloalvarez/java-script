@@ -1,3 +1,5 @@
+import { createUserStyle } from '../../components/styles/styles.js'
+
 export function createUser() {
   const titulo = document.createElement('h2')
   titulo.textContent = 'Crear Nuevo Usuario'
@@ -36,6 +38,10 @@ export function createUser() {
   boton.type = 'submit'
   boton.textContent = 'Crear Usuario'
   formulario.appendChild(boton)
+
+  const styleTag = document.createElement('style')
+  styleTag.textContent = createUserStyle()
+  document.head.appendChild(styleTag)
 
   return [titulo, formulario]
 }
