@@ -3,7 +3,7 @@ import { tbl_usuarios } from '../../DB/tbl_usuarios.js'
 export async function index() {
   //Creamos el título principal
   const titulo = document.createElement('h2')
-  titulo.textContent = 'ABM Usuarios'
+  titulo.textContent = 'Listado de Usuarios'
   titulo.classList.add('main-title')
 
   //Creamos el botón "Crear Usuario"

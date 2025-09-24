@@ -299,6 +299,15 @@ export function createUserStyle() {
       color: var(--main-text-color);
     }
 
+    .form-group select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid var(--header-text-color);
+      border-radius: 4px;
+      background-color: var(--table-row-bg);
+      color: var(--main-text-color);
+    }
+
     .form-crear-usuario button[type="submit"] {
       padding: 0.75rem 1.5rem;
       font-size: 1rem;
@@ -314,5 +323,14 @@ export function createUserStyle() {
     .form-crear-usuario button[type="submit"]:hover {
       opacity: 0.9;
     }
+
+    .form-aclaracion {
+      font-size: 0.9rem;
+      color: var(--main-text-color);
+      text-align: center;
+      margin-top: 1rem;
+      opacity: 0.8;
+    }
+
   `
 }

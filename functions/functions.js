@@ -1,5 +1,5 @@
 import { usuarios } from '../DB/usuarios.js'
-import { rolesValidos } from '../DB/roles.js'
+//import { rolesValidos } from '../DB/tbl_form_createuser.js'
 
 // Creamos una key-name para luego almacenar el tema que prefiere en la localStorage.
 const THEME_KEY = 'theme-preference';
@@ -60,7 +60,7 @@ function isLocalHost() {
 
 
 
-
+/*
 
 //Función para ingresar y validar el nombre de usuario del nuevo usuario.
 export function inputUsuario(nuevoUsuario) {
@@ -164,3 +164,5 @@ function validarEmailExistente(email) {
 function validarRol(rol) {
     return rolesValidos.includes(rol)
 }
+
+*/
