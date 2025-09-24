@@ -132,6 +132,27 @@ export function mainStyle() {
       overflow: auto;
     }
 
+    .contenedor-boton-agregar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    .btn-agregar {
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-agregar:hover {
+      background-color: #45a049;
+    }
+
     .main-title {
       font-size: 1.8rem;
       margin-bottom: 1rem;
