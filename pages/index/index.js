@@ -1,3 +1,5 @@
+import { tbl_usuarios } from '../../DB/tbl_usuarios.js'
+
 export async function index() {
   //Creamos el título principal
   const titulo = document.createElement('h2')
@@ -24,8 +26,7 @@ export async function index() {
   tablaContenedor.id = 'tabla-usuarios'
 
   try {
-    const res = await fetch('../DB/tbl_usuarios.json')
-    const { headers, data } = await res.json()
+    const { headers, data } = tbl_usuarios
 
     const tabla = document.createElement('table')
     tabla.classList.add('usuarios-tabla')
