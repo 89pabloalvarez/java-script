@@ -13,6 +13,8 @@ export function commonStyle() {
 
       --table-header-bg: #f0f0f0;
       --table-row-bg: #ffffff;
+
+      --form-shadow-color: rgba(0, 0, 0, 0.25);
     }
 
     [data-theme="dark"] {
@@ -24,6 +26,8 @@ export function commonStyle() {
 
       --footer-bg-gradient: linear-gradient(to right, #0a1f40, #1c3b5f, #0a1f40);
       --footer-text-color: #f5f5f5;
+
+      --form-shadow-color: rgba(255, 255, 255, 0.2);
     }
 
     * {
@@ -269,7 +273,7 @@ export function createUserStyle() {
       padding: 2rem;
       background-color: var(--main-bg-color);
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 16px var(--form-shadow-color);
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
