@@ -1,4 +1,3 @@
-import { tbl_usuarios } from '../DB/tbl_usuarios.js'
 import { tbl_form_createuser } from '../DB/tbl_form_createuser.js'
 
 // Creamos una key-name para luego almacenar el tema que prefiere en la localStorage.
@@ -10,7 +9,6 @@ export function setStoredTheme() {
   if (storedTheme === 'dark' || storedTheme === 'light') {
     document.documentElement.setAttribute('data-theme', storedTheme);
   } else {
-    // Default to light if no preference
     document.documentElement.setAttribute('data-theme', 'light');
     localStorage.setItem(THEME_KEY, 'light');
   }
@@ -83,7 +81,11 @@ export function validateUserInput(inputElement) {
 
 // Con ésta funcion voy a crear el usuario nuevo a partir del formulario.
 export function createUserObject(formElement) {
-  const nextId = Math.max(...tbl_usuarios.data.map(u => u.id)) + 1 // Obtengo el próximo ID disponible.
+  const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
+  const nextId = storedData.length > 0
+    ? Math.max(...storedData.map(u => u.id)) + 1
+    : 1
+
   //matcheo los elementos del form con sus valores y le saco los espacios en blanco al inicio y al final.
   const nombre = formElement.nombre.value.trim()
   const apellido = formElement.apellido.value.trim()
@@ -145,9 +147,12 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
   // Si todo es válido, creo el usuario y lo agrego a la "DB".
   if (inputValid) {
     const nuevoUsuario = createUserObject(formElement)
-    tbl_usuarios.data.push(nuevoUsuario)
+
+    const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
+    storedData.push(nuevoUsuario)
+    localStorage.setItem('tableUsersData', JSON.stringify(storedData))
     localStorage.setItem('userCreated', 'true')
-    
+
     showSuccessMessage('Datos del formulario válidos.')
     setTimeout(() => {
       goToHome()
@@ -173,7 +178,7 @@ export function showSuccessMessage(message) {
   }, 10000)
 }
 
-//
+// 
 // FUNCIONES INTERNAS
 //
 

@@ -1,32 +1,30 @@
-import { tbl_usuarios } from '../../DB/tbl_usuarios.js'
-
 export async function index() {
-  //Creamos el título principal
   const titulo = document.createElement('h2')
   titulo.textContent = 'Listado de Usuarios'
   titulo.classList.add('main-title')
 
-  //Creamos el botón "Crear Usuario"
   const botonCrearUsuario = document.createElement('button')
   botonCrearUsuario.textContent = 'Crear Usuario'
   botonCrearUsuario.classList.add('btn-agregar')
-
-  //Evento para navegar al formulario
   botonCrearUsuario.addEventListener('click', () => {
     window.location.href = './pages/users/createUser.html'
   })
 
-  //Contenedor para posicionar el botón a la izquierda
   const contenedorBoton = document.createElement('div')
   contenedorBoton.classList.add('contenedor-boton-agregar')
   contenedorBoton.appendChild(botonCrearUsuario)
 
-  //Contenedor de la tabla
   const tablaContenedor = document.createElement('div')
   tablaContenedor.id = 'tabla-usuarios'
 
   try {
-    const { headers, data } = tbl_usuarios
+    const headers = JSON.parse(localStorage.getItem('tableUsersHeaders'))
+    const data = JSON.parse(localStorage.getItem('tableUsersData'))
+
+    if (!headers?.length || !data?.length) {
+      tablaContenedor.textContent = 'No hay información para mostrar.'
+      return [titulo, contenedorBoton, tablaContenedor]
+    }
 
     const tabla = document.createElement('table')
     tabla.classList.add('usuarios-tabla')
@@ -51,7 +49,7 @@ export async function index() {
 
       headers.forEach(key => {
         const td = document.createElement('td')
-        const prop = key.toLowerCase().replace('-', '').replace(' ', '')
+        const prop = key.toLowerCase().replace(/[- ]/g, '')
         td.textContent = user[prop] ?? ''
         td.classList.add('tabla-td')
         fila.appendChild(td)
@@ -67,6 +65,5 @@ export async function index() {
     console.error(error)
   }
 
-  //Devolvemos los elementos para inyectar en el main
   return [titulo, contenedorBoton, tablaContenedor]
 }
