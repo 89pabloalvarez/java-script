@@ -108,6 +108,8 @@ export function createUserObject(formElement) {
 // Con ésta función valido el formulario de creación de usuario. Si es válido, creo el usuario y lo agrego a la "DB".
 export function validateCreateUserForm(formElement) { // Independientemente de las validaciones en tiempo real del HTML, vuelvo a validar todo al enviar el formulario.
 
+  //lista actual de usuarios para validar duplicados.
+  let storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
   // Partimos de válido y vamos chequeando cada campo.
   let inputValid = true // Inputs de texto y email
   let selectValid = true // Select
@@ -145,30 +147,31 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
     inputValid = inputValid && isValid
 
     // Validación de usuario duplicado
-    const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
     const usuarioDuplicado = storedData.some(user => user.usuario?.toLowerCase() === usuarioValue.toLowerCase())
 
     if (usuarioDuplicado) {
       usuarioInput.classList.add('input-error')
-      usuarioInput.setCustomValidity('El usuario ingresado se encuentra registrado')
+      showWarningMessage(`El usuario "${usuarioValue}" ya se encuentra registrado`)
       inputValid = false
     } else {
-      usuarioInput.setCustomValidity('')
+      usuarioInput.classList.remove('input-error')
     }
   }
 
   // Validación de email duplicado
   const emailInput = formElement.querySelector('#email')
   const emailValue = emailInput.value.trim()
-  const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
-  const emailDuplicado = storedData.some(user => user.email.toLowerCase() === emailValue.toLowerCase())
 
-  if (emailDuplicado) {
-    emailInput.classList.add('input-error')
-    emailInput.setCustomValidity('El mail ingresado ya se encuentra registrado')
-    inputValid = false
-  } else {
-    emailInput.setCustomValidity('')
+  if (emailValue !== '') {
+    const emailDuplicado = storedData.some(user => user.email?.toLowerCase() === emailValue.toLowerCase())
+
+    if (emailDuplicado) {
+      emailInput.classList.add('input-error')
+      showWarningMessage(`El mail "${emailValue}" ya se encuentra registrado`)
+      inputValid = false
+    } else {
+      emailInput.classList.remove('input-error')
+    }
   }
 
   // Si todo es válido, creo el usuario y lo agrego a la "DB".
@@ -204,6 +207,20 @@ export function showSuccessMessage(message) {
   }, 10000)
 }
 
+// Con ésta función muestro un mensaje de advertencia visual (similar al success-modal).
+export function showWarningMessage(message) {
+  const modal = document.createElement('div')
+  modal.classList.add('warning-modal')
+  modal.textContent = message
+
+  document.body.appendChild(modal)
+
+  setTimeout(() => {
+    modal.remove()
+  }, 8000)
+}
+
+
 // Con ésta función limpio todos los campos del formulario de creación de usuario.
 export function clearForm(formElement) {
   // Recorro todos los inputs definidos en tbl_form_createuser.fields
@@ -237,15 +254,4 @@ function isLocalHost() {
     window.location.hostname === 'localhost' ||
     /^(\d{1,3}\.){3}\d{1,3}$/.test(window.location.hostname)
   )
-}
-
-function emailYaRegistrado(email) {
-  const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
-  return storedData.some(user => user.email.toLowerCase() === email.toLowerCase())
-}
-
-function usuarioYaRegistrado(usuario) {
-  if (!usuario) return false
-  const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
-  return storedData.some(user => user.usuario?.toLowerCase() === usuario.toLowerCase())
 }

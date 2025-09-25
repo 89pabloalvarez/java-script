@@ -92,6 +92,20 @@ export function commonStyle() {
       animation: fadeInOut 10s ease forwards;
     }
 
+    .warning-modal {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--alert-warning-bg);
+      color: #222;
+      padding: 12px 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      font-weight: bold;
+      z-index: 1000;
+      animation: fadeInOut 8s ease forwards;
+    }
+
     @keyframes fadeInOut {
       0% { opacity: 0; transform: translateY(-10px); }
       10% { opacity: 1; transform: translateY(0); }
