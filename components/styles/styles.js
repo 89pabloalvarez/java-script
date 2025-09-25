@@ -1,5 +1,6 @@
 export function commonStyle() {
   const style = document.createElement('style');
+
   style.innerHTML = `
     :root {
       --header-bg-gradient: linear-gradient(to right, #d0f0ff, #a3c9f7, #d0f0ff);
@@ -16,6 +17,19 @@ export function commonStyle() {
 
       --form-shadow-color: rgba(0, 0, 0, 0.25);
       --form-bg-color: #ffffff;
+
+      --verde-primario: #4caf50;
+      --verde-secundario: #2b622dff;
+
+      --blanco-primario: #f5f5f5;
+      --blanco-secundario: #a6a6a6ff;
+
+      --amarillo-primario: #fff700ff;
+      --amarillo-secundario: #968e02ff;
+
+      --alert-success-bg: #4caf50;
+      --alert-warning-bg: #f9fd04ff;
+      --alert-error-bg: #ce2d3aff;
     }
 
     [data-theme="dark"] {
@@ -30,6 +44,15 @@ export function commonStyle() {
 
       --form-shadow-color: rgba(255, 255, 255, 0.2);
       --form-bg-color: #ffffff33;
+
+      --verde-primario: #2b622dff;
+      --verde-secundario: #4caf50;
+
+      --blanco-primario: #a6a6a6ff;
+      --blanco-secundario: #f5f5f5;
+
+      --amarillo-primario: #968e02ff;
+      --amarillo-secundario: #fff700ff;
     }
 
     * {
@@ -59,7 +82,7 @@ export function commonStyle() {
       position: fixed;
       top: 20px;
       right: 20px;
-      background-color: #4caf50;
+      background-color: var(--alert-success-bg);
       color: white;
       padding: 12px 20px;
       border-radius: 6px;
@@ -178,8 +201,8 @@ export function mainStyle() {
     }
 
     .btn-agregar {
-      background-color: #4caf50;
-      color: #fff;
+      background-color: var(--verde-primario);
+      color: var(--blanco-primario);
       border: none;
       padding: 0.6rem 1.2rem;
       font-size: 1rem;
@@ -189,7 +212,7 @@ export function mainStyle() {
     }
 
     .btn-agregar:hover {
-      background-color: #45a049;
+      background-color: var(--verde-secundario);
     }
 
     .main-title {
@@ -209,7 +232,7 @@ export function mainStyle() {
       color: var(--main-text-color);
       border: 3px solid #999;
       padding: 0.5rem;
-      text-align: left;
+      text-align: center;
     }
 
     .tabla-td {
@@ -217,10 +240,27 @@ export function mainStyle() {
       color: var(--main-text-color);
       border: 2px solid #ccc;
       padding: 0.5rem;
+      text-align: center;
     }
 
     #tabla-usuarios {
       overflow-x: auto;
+    }
+
+    .estado-indicador {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      margin: auto;
+    }
+
+    .estado-indicador.activo {
+      background-color: var(--alert-success-bg);
+    }
+
+    .estado-indicador.inactivo {
+      background-color: var(--alert-error-bg);
     }
 
   `;
@@ -375,6 +415,51 @@ export function createUserStyle() {
 
     .input-error:focus {
       box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.3);
+    }
+
+    .form-botones {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .form-botones button {
+      flex: 1;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+      color: var(--header-text-color);
+    }
+
+    #btn-cancelar {
+      background-color: var(--amarillo-primario);
+    }
+
+    #btn-cancelar:hover {
+      background-color: var(--amarillo-secundario);
+      color: black;
+    }
+
+    #btn-limpiar {
+      background-color: var(--blanco-primario);
+    }
+
+    #btn-limpiar:hover {
+      background-color: var(--blanco-secundario);
+      color: black;
+    }
+
+    #btn-crear {
+      background: var(--verde-primario);
+    }
+
+    #btn-crear:hover {
+      background: var(--verde-secundario);
+      color: black;
     }
 
   `

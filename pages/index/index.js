@@ -50,7 +50,17 @@ export async function index() {
       headers.forEach(key => {
         const td = document.createElement('td')
         const prop = key.toLowerCase().replace(/[- ]/g, '')
-        td.textContent = user[prop] ?? ''
+
+        if (prop === 'activo') {
+          const estado = document.createElement('span')
+          estado.classList.add('estado-indicador')
+          estado.classList.add(user[prop] ? 'activo' : 'inactivo')
+          estado.title = user[prop] ? 'Activo' : 'Inactivo'
+          td.appendChild(estado)
+        } else {
+          td.textContent = user[prop] ?? ''
+        }
+
         td.classList.add('tabla-td')
         fila.appendChild(td)
       })

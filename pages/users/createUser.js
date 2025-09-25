@@ -1,6 +1,6 @@
 import { createUserStyle } from '../../components/styles/styles.js'
 import { tbl_form_createuser } from '../../DB/tbl_form_createuser.js'
-import { onlyLetters, validateUserInput, validateCreateUserForm } from '../../functions/functions.js'
+import { onlyLetters, validateUserInput, validateCreateUserForm, goToHome, clearForm } from '../../functions/functions.js'
 
 export function createUser() {
   //Creamos el título principal.
@@ -70,12 +70,46 @@ export function createUser() {
     formulario.appendChild(grupo)
   })
 
-  //Botón de envío del formulario de tipo submit.
-  const boton = document.createElement('button')
-  boton.type = 'submit'
-  boton.textContent = 'Crear Usuario'
-  formulario.appendChild(boton)
+  // Contenedor de botones
+  const contenedorBotones = document.createElement('div')
+  contenedorBotones.classList.add('form-botones')
 
+  // Botón Cancelar
+  const btnCancelar = document.createElement('button')
+  btnCancelar.type = 'button'
+  btnCancelar.textContent = 'Cancelar'
+  btnCancelar.id = 'btn-cancelar'
+
+  // Botón Limpiar
+  const btnLimpiar = document.createElement('button')
+  btnLimpiar.type = 'button'
+  btnLimpiar.textContent = 'Limpiar'
+  btnLimpiar.id = 'btn-limpiar'
+
+  // Botón Crear Usuario (submit)
+  const btnCrear = document.createElement('button')
+  btnCrear.type = 'submit'
+  btnCrear.textContent = 'Crear Usuario'
+  btnCrear.id = 'btn-crear'
+
+  // Agrego los botones al contenedor
+  contenedorBotones.appendChild(btnCancelar)
+  contenedorBotones.appendChild(btnLimpiar)
+  contenedorBotones.appendChild(btnCrear)
+
+  // Agrego el contenedor al formulario
+  formulario.appendChild(contenedorBotones)
+
+  //Evento del botón Cancelar: redirige al index
+  btnCancelar.addEventListener('click', () => {
+    goToHome()
+  })
+
+  btnLimpiar.addEventListener('click', () => {
+    clearForm(formulario)
+  })
+
+  //Evento de envío del formulario
   formulario.addEventListener('submit', e => {
     e.preventDefault()
 

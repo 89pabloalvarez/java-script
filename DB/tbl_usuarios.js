@@ -7,7 +7,7 @@ export let tbl_usuarios = {
       apellido: "Rammone",
       usuario: "admin",
       email: "paul.rammone@mail.com",
-      rol: "administrador",
+      rol: "Administrador",
       activo: true
     },
     {
@@ -16,7 +16,7 @@ export let tbl_usuarios = {
       apellido: "Martínez",
       usuario: "lmartinez",
       email: "lucia.martinez@mail.com",
-      rol: "administrador",
+      rol: "Administrador",
       activo: true
     },
     {
@@ -25,8 +25,8 @@ export let tbl_usuarios = {
       apellido: "Pérez",
       usuario: "jperez",
       email: "julian.perez@mail.com",
-      rol: "vendedor",
-      activo: true
+      rol: "Vendedor",
+      activo: false
     },
     {
       id: 4,
@@ -34,7 +34,7 @@ export let tbl_usuarios = {
       apellido: "Gómez",
       usuario: "sgomez",
       email: "sofia.gomez@mail.com",
-      rol: "supervisor",
+      rol: "Supervisor",
       activo: true
     },
     {
@@ -43,7 +43,7 @@ export let tbl_usuarios = {
       apellido: "Rodríguez",
       usuario: "mrodriguez",
       email: "martin.rodriguez@mail.com",
-      rol: "vendedor",
+      rol: "Vendedor",
       activo: true
     },
     {
@@ -52,7 +52,7 @@ export let tbl_usuarios = {
       apellido: "Fernández",
       usuario: null,
       email: "carla.fernandez@mail.com",
-      rol: "supervisor",
+      rol: "Supervisor",
       activo: true
     },
     {
@@ -61,7 +61,7 @@ export let tbl_usuarios = {
       apellido: "López",
       usuario: "dlopez",
       email: "diego.lopez@mail.com",
-      rol: "administrador",
+      rol: "Administrador",
       activo: true
     },
     {
@@ -70,7 +70,7 @@ export let tbl_usuarios = {
       apellido: "Ruiz",
       usuario: "vruiz",
       email: "valentina.ruiz@mail.com",
-      rol: "vendedor",
+      rol: "Vendedor",
       activo: false
     },
     {
@@ -79,8 +79,8 @@ export let tbl_usuarios = {
       apellido: "Torres",
       usuario: null,
       email: "federico.torres@mail.com",
-      rol: "supervisor",
-      activo: true
+      rol: "Supervisor",
+      activo: false
     }
   ]
 }

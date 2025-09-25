@@ -132,23 +132,49 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
   })
 
   // Validación específica para el campo "usuario" (si no está vacío).
-  const usuario = formElement.querySelector('#usuario')
-  if (usuario && usuario.value.trim() !== '') {
+  const usuarioInput = formElement.querySelector('#usuario')
+  const usuarioValue = usuarioInput.value.trim()
+  if (usuarioValue !== '') {
     // Valido lo mismo que aclare en el HTML: entre 8 y 15 caracteres sin espacios.
-    const cleaned = usuario.value.replace(/\s/g, '')
+    const cleaned = usuarioValue.replace(/\s/g, '')
     const lengthValid = cleaned.length >= 8 && cleaned.length <= 15
-    const noSpaces = cleaned === usuario.value
+    const noSpaces = cleaned === usuarioValue
 
     const isValid = lengthValid && noSpaces
-    usuario.classList.toggle('input-error', !isValid)
+    usuarioInput.classList.toggle('input-error', !isValid)
     inputValid = inputValid && isValid
+
+    // Validación de usuario duplicado
+    const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
+    const usuarioDuplicado = storedData.some(user => user.usuario?.toLowerCase() === usuarioValue.toLowerCase())
+
+    if (usuarioDuplicado) {
+      usuarioInput.classList.add('input-error')
+      usuarioInput.setCustomValidity('El usuario ingresado se encuentra registrado')
+      inputValid = false
+    } else {
+      usuarioInput.setCustomValidity('')
+    }
+  }
+
+  // Validación de email duplicado
+  const emailInput = formElement.querySelector('#email')
+  const emailValue = emailInput.value.trim()
+  const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
+  const emailDuplicado = storedData.some(user => user.email.toLowerCase() === emailValue.toLowerCase())
+
+  if (emailDuplicado) {
+    emailInput.classList.add('input-error')
+    emailInput.setCustomValidity('El mail ingresado ya se encuentra registrado')
+    inputValid = false
+  } else {
+    emailInput.setCustomValidity('')
   }
 
   // Si todo es válido, creo el usuario y lo agrego a la "DB".
   if (inputValid) {
     const nuevoUsuario = createUserObject(formElement)
 
-    const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
     storedData.push(nuevoUsuario)
     localStorage.setItem('tableUsersData', JSON.stringify(storedData))
     localStorage.setItem('userCreated', 'true')
@@ -178,6 +204,29 @@ export function showSuccessMessage(message) {
   }, 10000)
 }
 
+// Con ésta función limpio todos los campos del formulario de creación de usuario.
+export function clearForm(formElement) {
+  // Recorro todos los inputs definidos en tbl_form_createuser.fields
+  const campos = tbl_form_createuser.fields.map(f => f.name)
+
+  campos.forEach(name => {
+    const input = formElement.querySelector(`#${name}`)
+
+    if (!input) return
+
+    // Si es un select (rol), lo des-selecciono
+    if (name === 'rol') {
+      input.value = ''
+    } else {
+      input.value = ''
+    }
+
+    // Limpio errores visuales y validaciones personalizadas
+    input.classList.remove('input-error')
+    input.setCustomValidity('')
+  })
+}
+
 // 
 // FUNCIONES INTERNAS
 //
@@ -188,4 +237,15 @@ function isLocalHost() {
     window.location.hostname === 'localhost' ||
     /^(\d{1,3}\.){3}\d{1,3}$/.test(window.location.hostname)
   )
+}
+
+function emailYaRegistrado(email) {
+  const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
+  return storedData.some(user => user.email.toLowerCase() === email.toLowerCase())
+}
+
+function usuarioYaRegistrado(usuario) {
+  if (!usuario) return false
+  const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
+  return storedData.some(user => user.usuario?.toLowerCase() === usuario.toLowerCase())
 }
