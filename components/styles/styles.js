@@ -309,6 +309,7 @@ export function createUserStyle() {
       font-size: 1rem;
       border: 1px solid var(--header-text-color);
       border-radius: 4px;
+      background-color: var(--form-bg-color);
     }
     /* Estilos específicos para las opciones del select en modo claro y oscuro. NOTA: Por algun motivo si hago ".form-group select option y le seteo background-color y color con las variables de light y dark no funciona, tengo que forzar el color directo! así: */
     [data-theme="dark"] .form-group select option {
