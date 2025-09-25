@@ -3,6 +3,7 @@ import { renderHeader } from '../../components/elements/header.js'
 import { renderMain } from '../../components/elements/main.js'
 import { renderFooter } from '../../components/elements/footer.js'
 import { index } from '../../pages/index/index.js'
+import { showSuccessMessage } from '../../functions/functions.js'
 
 export async function renderIndex() {
   commonStyle()
@@ -20,4 +21,9 @@ export async function renderIndex() {
   app.appendChild(header)
   app.appendChild(main)
   app.appendChild(footer)
+
+  if (localStorage.getItem('userCreated') === 'true') {
+    showSuccessMessage('Creación de Usuario Exitosa')
+    localStorage.removeItem('userCreated')
+  }
 }

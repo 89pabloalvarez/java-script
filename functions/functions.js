@@ -1,5 +1,5 @@
-import { usuarios } from '../DB/usuarios.js'
-//import { rolesValidos } from '../DB/tbl_form_createuser.js'
+import { tbl_usuarios } from '../DB/tbl_usuarios.js'
+import { tbl_form_createuser } from '../DB/tbl_form_createuser.js'
 
 // Creamos una key-name para luego almacenar el tema que prefiere en la localStorage.
 const THEME_KEY = 'theme-preference';
@@ -30,8 +30,6 @@ export function toggleTheme() {
   }
 }
 
-
-
 // Redirige al index.html según entorno (local o GitHub Pages)
 export function goToHome() {
   const repo = isLocalHost() ? '' : '/' + window.location.pathname.split('/')[1]
@@ -48,6 +46,133 @@ export function getLogo() {
   return `${window.location.origin}${repo}/assets/images/logo_sin_fondo.png`
 }
 
+// Con ésta funcion valido que un input solo acepte letras y espacios (sin números ni caracteres especiales)
+export function onlyLetters(inputElement) {
+  inputElement.addEventListener('input', () => {
+    const cleaned = inputElement.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '')
+    if (inputElement.value !== cleaned) {
+      inputElement.value = cleaned
+    }
+  })
+}
+
+// Con ésta funcion valido que un input de nombre de usuario no acepte espacios, limite a 15 caracteres y tenga al menos 8 caracteres.
+export function validateUserInput(inputElement) {
+  inputElement.addEventListener('input', () => {
+    // Elimina espacios
+    let cleaned = inputElement.value.replace(/\s/g, '')
+
+    // Limita a 15 caracteres
+    if (cleaned.length > 15) {
+      cleaned = cleaned.slice(0, 15)
+    }
+
+    // Actualiza el valor si fue modificado
+    if (inputElement.value !== cleaned) {
+      inputElement.value = cleaned
+    }
+
+    // Validación visual opcional (ejemplo)
+    if (cleaned.length > 0 && cleaned.length < 8) {
+      inputElement.setCustomValidity('Debe tener al menos 8 caracteres')
+    } else {
+      inputElement.setCustomValidity('')
+    }
+  })
+}
+
+// Con ésta funcion voy a crear el usuario nuevo a partir del formulario.
+export function createUserObject(formElement) {
+  const nextId = Math.max(...tbl_usuarios.data.map(u => u.id)) + 1 // Obtengo el próximo ID disponible.
+  //matcheo los elementos del form con sus valores y le saco los espacios en blanco al inicio y al final.
+  const nombre = formElement.nombre.value.trim()
+  const apellido = formElement.apellido.value.trim()
+  const usuario = formElement.usuario.value.trim() || null
+  const email = formElement.email.value.trim()
+  const rol = formElement.rol.value.trim()
+
+  // Devuelvo el nuevo objeto: user.
+  return {
+    id: nextId,
+    nombre,
+    apellido,
+    usuario,
+    email,
+    rol,
+    activo: true
+  }
+}
+
+// Con ésta función valido el formulario de creación de usuario. Si es válido, creo el usuario y lo agrego a la "DB".
+export function validateCreateUserForm(formElement) { // Independientemente de las validaciones en tiempo real del HTML, vuelvo a validar todo al enviar el formulario.
+
+  // Partimos de válido y vamos chequeando cada campo.
+  let inputValid = true // Inputs de texto y email
+  let selectValid = true // Select
+
+  // Campos obligatorios: nombre, apellido, email y rol (usuario es opcional).
+  const requiredFields = ['nombre', 'apellido', 'email', 'rol']
+
+  // Recorro los campos obligatorios para verificar que no estén vacíos.
+  requiredFields.forEach(name => {
+    const input = formElement.querySelector(`#${name}`)
+
+    if (name === 'rol') { // En el caso de "rol" verifico que sea uno de los roles válidos.
+      const rolesValidos = tbl_form_createuser.roles_list.map(r => r.toLowerCase())
+      selectValid = rolesValidos.includes(input.value.toLowerCase())
+    } else {
+      selectValid = input.value.trim() !== ''
+    }
+
+    // Agrego o quito la clase de error según corresponda.
+    input.classList.toggle('input-error', !selectValid)
+    inputValid = inputValid && selectValid
+  })
+
+  // Validación específica para el campo "usuario" (si no está vacío).
+  const usuario = formElement.querySelector('#usuario')
+  if (usuario && usuario.value.trim() !== '') {
+    // Valido lo mismo que aclare en el HTML: entre 8 y 15 caracteres sin espacios.
+    const cleaned = usuario.value.replace(/\s/g, '')
+    const lengthValid = cleaned.length >= 8 && cleaned.length <= 15
+    const noSpaces = cleaned === usuario.value
+
+    const isValid = lengthValid && noSpaces
+    usuario.classList.toggle('input-error', !isValid)
+    inputValid = inputValid && isValid
+  }
+
+  // Si todo es válido, creo el usuario y lo agrego a la "DB".
+  if (inputValid) {
+    const nuevoUsuario = createUserObject(formElement)
+    tbl_usuarios.data.push(nuevoUsuario)
+    localStorage.setItem('userCreated', 'true')
+    
+    showSuccessMessage('Datos del formulario válidos.')
+    setTimeout(() => {
+      goToHome()
+    }, 3000)
+    console.log('Nuevo usuario agregado:', nuevoUsuario)
+  }
+
+  return inputValid
+}
+
+export function showSuccessMessage(message) {
+  // Creo un modal simple que desaparece solo después de unos segundos.
+  const modal = document.createElement('div')
+  modal.classList.add('success-modal')
+  modal.textContent = message
+
+  // Inyecto
+  document.body.appendChild(modal)
+
+  // Con un pequeño timeout le muestro al usuario el mensaje y luego lo saco.
+  setTimeout(() => {
+    modal.remove()
+  }, 10000)
+}
+
 //
 // FUNCIONES INTERNAS
 //
@@ -59,116 +184,3 @@ function isLocalHost() {
     /^(\d{1,3}\.){3}\d{1,3}$/.test(window.location.hostname)
   )
 }
-
-
-
-
-
-
-
-/*
-
-//Función para ingresar y validar el nombre de usuario del nuevo usuario.
-export function inputUsuario(nuevoUsuario) {
-    let usuario = "";
-    do {
-        usuario = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nIngrese el nombre de usuario:`)?.trim();
-    if (!validarInputNoVacio(usuario)) {
-        alert(`El nombre de usuario no puede estar vacío. Intente nuevamente.`)
-    } else if (validarUsuarioExistente(usuario)) {
-        alert(`El usuario "${usuario}" ya existe. Por favor, ingrese un nombre de usuario diferente.`)
-        usuario = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nIngrese el nombre de usuario:`)
-    }
-  } while (!validarInputNoVacio(usuario) || validarUsuarioExistente(usuario));
-
-  return usuario;
-}
-
-//Función para ingresar y validar el email del nuevo usuario.
-export function inputEmail(nuevoUsuario) {
-    let email = ""
-    do {
-        email = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nEl formato correcto es: "correo@electronico.com"\n\nIngrese el correo electrónico:`)?.trim()
-        if (!validarInputNoVacio(email)) {
-            alert(`El Email ingresado no puede estar vacío. Intente nuevamente.`)
-        } else if (!validarFormatoEmail(email)) {
-            alert(`El Email ingresado: "${email}" es inválido.\nIntente con un formato como éste ejemplo: "correo@electronico.com"`)
-        } else if (validarEmailExistente(email)) {
-            alert(`El Email "${email}" ya existe. Por favor, ingrese un correo electrónico diferente.`)
-        }
-    } while (!validarInputNoVacio(email) || !validarFormatoEmail(email) || validarEmailExistente(email))
-    return email
-}
-
-//Función para ingresar y validar el rol del nuevo usuario.
-export function inputRol(nuevoUsuario) {
-    let rol = ""
-    do {
-        rol = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nLos roles permitidos son:\n"${rolesValidos[0]}", "${rolesValidos[1]}" y "${rolesValidos[2]}"\n\n ¿Qué rol tendría el nuevo usuario?:`).toLowerCase()
-        if (!validarInputNoVacio(rol)) {
-            alert(`El rol ingresado esta vacío. ingrese alguno de los siguientes roles permitidos: \n\n"${rolesValidos[0]}", "${rolesValidos[1]}" o "${rolesValidos[2]}"`)
-        } else if (!validarRol(rol)) {
-            alert(`El rol ingresado: "${rol}" es inválido. \n\nLos roles permitidos son:\n"${rolesValidos[0]}", "${rolesValidos[1]}" y "${rolesValidos[2]}"\n\n Ingrese un rol válido.`)
-        }
-    } while (!validarInputNoVacio(rol) || !validarRol(rol))
-  return rol
-}
-
-//Función para ingresar y confirmar la contraseña del nuevo usuario.
-export function inputContraseña(nuevoUsuario) {
-    let contraseña = ""
-    let confirmacionContraseña = ""
-    do {
-        contraseña = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nAhora ingrese la contraseña:`).trim()
-        confirmacionContraseña = prompt(`Datos del usuario: \n\nUsuario: ${nuevoUsuario.usuario} \nEmail: ${nuevoUsuario.email} \nRol: ${nuevoUsuario.rol} \n\nVuelva a ingresar la contraseña:`).trim()
-        if (!validarInputNoVacio(contraseña) || !validarInputNoVacio(confirmacionContraseña)) {
-            alert(`Debe ingresar una contraseña, no puede estar vacío.\n\nIntente nuevamente.`)
-        } else if (contraseña !== confirmacionContraseña) {
-            alert(`Las contraseñas ingresadas "${contraseña}" y "${confirmacionContraseña}" no coinciden. Intente nuevamente.`)
-        }
-    } while (!validarInputNoVacio(contraseña) || !validarInputNoVacio(confirmacionContraseña) || contraseña !== confirmacionContraseña)
-    alert("Contraseña confirmada correctamente.")
-    return contraseña
-}
-
-//Función para obtener el próximo ID de usuario.
-export function nextIdUsuario() {
-    //si no hay usuarios devolvemos 1, sino el maximo id + 1.
-    return usuarios.length === 0 ? 1 : Math.max(...usuarios.map(user => user.id)) + 1
-}
-
-//Funciones para mostrar la lista de usuarios.
-export function mostrarUsuariosEnConsola() {
-    console.log('la lista actual de usuarios en la "DB" es:', usuarios)
-}
-export function mostrarUsuariosEnPantalla() {
-    let listaUsuarios = "Lista de usuarios:\n\n"
-    usuarios.forEach(user => {
-        listaUsuarios += `ID: ${user.id} | Usuario: ${user.usuario} | Email: ${user.email} | Rol: ${user.rol}\n`
-    })
-    alert(listaUsuarios)
-}
-
-
-
-function validarInputNoVacio(input) {
-  return typeof input === "string" && input.trim().length > 0;
-}
-
-function validarUsuarioExistente(usuario) {
-    return usuarios.some(user => user.usuario.toLowerCase() === usuario.toLowerCase())
-}
-
-function validarFormatoEmail(email) {
-    return email.includes("@") && email.includes(".")
-}
-
-function validarEmailExistente(email) {
-    return usuarios.some(user => user.email.toLowerCase() === email.toLowerCase())
-}
-
-function validarRol(rol) {
-    return rolesValidos.includes(rol)
-}
-
-*/

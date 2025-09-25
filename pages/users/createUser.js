@@ -1,5 +1,6 @@
 import { createUserStyle } from '../../components/styles/styles.js'
 import { tbl_form_createuser } from '../../DB/tbl_form_createuser.js'
+import { onlyLetters, validateUserInput, validateCreateUserForm } from '../../functions/functions.js'
 
 export function createUser() {
   //Creamos el título principal.
@@ -12,7 +13,7 @@ export function createUser() {
   formulario.classList.add('form-crear-usuario')
 
   //Iteramos sobre los campos definidos en tbl_form_createuser.js para crear los inputs dinámicamente.
-  tbl_form_createuser.fields.forEach(({ label, name }) => {
+  tbl_form_createuser.fields.forEach(({ label, name, validate }) => {
     const grupo = document.createElement('div')
     grupo.classList.add('form-group')
 
@@ -54,6 +55,14 @@ export function createUser() {
       if (['nombre', 'apellido', 'email'].includes(name)) {
         input.required = true
       }
+
+      // Validación dinámica si existe
+      if (validate === 'onlyLetters') {
+        onlyLetters(input)
+      }
+      if (validate === 'validateUserInput') {
+        validateUserInput(input)
+      }
     }
 
     grupo.appendChild(lbl)
@@ -67,10 +76,28 @@ export function createUser() {
   boton.textContent = 'Crear Usuario'
   formulario.appendChild(boton)
 
+  formulario.addEventListener('submit', e => {
+    e.preventDefault()
+
+    const isValid = validateCreateUserForm(formulario)
+
+    if (isValid) {
+      // Podés limpiar el formulario, mostrar mensaje, o actualizar la tabla
+      formulario.reset()
+      console.log('Formulario válido. Usuario creado.')
+    } else {
+      console.log('Formulario inválido. Revisar campos obligatorios.')
+    }
+  })
+
   //Aclaración sobre los campos obligatorios.
   const aclaracion = document.createElement('p')
-  aclaracion.textContent = 'Los campos indicados con (*) son obligatorios.'
   aclaracion.classList.add('form-aclaracion')
+  // Tengo que crear los elementos por separado para que respete el salto de línea. (no me tomaba ni \n ni <br> en el textContent)
+  aclaracion.appendChild(document.createTextNode('Los campos indicados con (*) son obligatorios.'))
+  aclaracion.appendChild(document.createElement('br'))
+  aclaracion.appendChild(document.createElement('br'))
+  aclaracion.appendChild(document.createTextNode('El campo "Usuario" admite entre 8 y 15 caracteres sin espacios.'))
   formulario.appendChild(aclaracion)
 
   //Agregamos los estilos al formulario.

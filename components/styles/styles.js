@@ -54,6 +54,28 @@ export function commonStyle() {
       display: flex;
       flex-direction: column;
     }
+
+    .success-modal {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #4caf50;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      font-weight: bold;
+      z-index: 1000;
+      animation: fadeInOut 10s ease forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(-10px); }
+      10% { opacity: 1; transform: translateY(0); }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-10px); }
+    }
+
   `;
   document.head.appendChild(style);
 }
@@ -322,7 +344,6 @@ export function createUserStyle() {
       color: #222;
     }
 
-
     .form-crear-usuario button[type="submit"] {
       padding: 0.75rem 1.5rem;
       font-size: 1rem;
@@ -345,6 +366,15 @@ export function createUserStyle() {
       text-align: center;
       margin-top: 1rem;
       opacity: 0.8;
+    }
+    
+    .input-error {
+      border: 2px solid red;
+      outline: none;
+    }
+
+    .input-error:focus {
+      box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.3);
     }
 
   `

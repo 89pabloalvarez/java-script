@@ -2,6 +2,7 @@ export let tbl_usuarios = {
   headers: ["Nombre", "Apellido", "Usuario", "E-Mail", "Rol", "Activo"],
   data: [
     {
+      id: 1,
       nombre: "Paul",
       apellido: "Rammone",
       usuario: "admin",
@@ -10,6 +11,7 @@ export let tbl_usuarios = {
       activo: true
     },
     {
+      id: 2,
       nombre: "Lucía",
       apellido: "Martínez",
       usuario: "lmartinez",
@@ -18,6 +20,7 @@ export let tbl_usuarios = {
       activo: true
     },
     {
+      id: 3,
       nombre: "Julián",
       apellido: "Pérez",
       usuario: "jperez",
@@ -26,6 +29,7 @@ export let tbl_usuarios = {
       activo: true
     },
     {
+      id: 4,
       nombre: "Sofía",
       apellido: "Gómez",
       usuario: "sgomez",
@@ -34,6 +38,7 @@ export let tbl_usuarios = {
       activo: true
     },
     {
+      id: 5,
       nombre: "Martín",
       apellido: "Rodríguez",
       usuario: "mrodriguez",
@@ -42,6 +47,7 @@ export let tbl_usuarios = {
       activo: true
     },
     {
+      id: 6,
       nombre: "Carla",
       apellido: "Fernández",
       usuario: null,
@@ -50,6 +56,7 @@ export let tbl_usuarios = {
       activo: true
     },
     {
+      id: 7,
       nombre: "Diego",
       apellido: "López",
       usuario: "dlopez",
@@ -58,6 +65,7 @@ export let tbl_usuarios = {
       activo: true
     },
     {
+      id: 8,
       nombre: "Valentina",
       apellido: "Ruiz",
       usuario: "vruiz",
@@ -66,6 +74,7 @@ export let tbl_usuarios = {
       activo: false
     },
     {
+      id: 9,
       nombre: "Federico",
       apellido: "Torres",
       usuario: null,
