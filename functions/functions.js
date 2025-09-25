@@ -22,6 +22,12 @@ export function toggleTheme() {
   const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', newTheme);
   localStorage.setItem(THEME_KEY, newTheme);
+
+  // Actualizamos el texto del botón según el nuevo tema
+  const themeToggleBtn = document.getElementById('header-themeToggleBtn');
+  if (themeToggleBtn) {
+    themeToggleBtn.textContent = newTheme === 'dark' ? 'MODO DÍA' : 'MODO NOCHE';
+  }
 }
 
 

@@ -15,6 +15,7 @@ export function commonStyle() {
       --table-row-bg: #ffffff;
 
       --form-shadow-color: rgba(0, 0, 0, 0.25);
+      --form-bg-color: #ffffff;
     }
 
     [data-theme="dark"] {
@@ -28,6 +29,7 @@ export function commonStyle() {
       --footer-text-color: #f5f5f5;
 
       --form-shadow-color: rgba(255, 255, 255, 0.2);
+      --form-bg-color: #ffffff33;
     }
 
     * {
@@ -116,7 +118,8 @@ export function headerStyle() {
     }
 
     .theme-toggle-btn {
-      padding: 0.5rem 1rem;
+      width: 150px;
+      height: 40px;
       font-size: 1rem;
       background-color: transparent;
       border: 2px solid var(--header-text-color);
@@ -124,6 +127,8 @@ export function headerStyle() {
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      text-align: center;
+      white-space: nowrap;
     }
 
     .theme-toggle-btn:hover {
@@ -295,7 +300,7 @@ export function createUserStyle() {
       font-size: 1rem;
       border: 1px solid var(--header-text-color);
       border-radius: 4px;
-      background-color: var(--table-row-bg);
+      background-color: var(--form-bg-color);
       color: var(--main-text-color);
     }
 
@@ -304,9 +309,17 @@ export function createUserStyle() {
       font-size: 1rem;
       border: 1px solid var(--header-text-color);
       border-radius: 4px;
-      background-color: var(--table-row-bg);
-      color: var(--main-text-color);
     }
+    /* Estilos específicos para las opciones del select en modo claro y oscuro. NOTA: Por algun motivo si hago ".form-group select option y le seteo background-color y color con las variables de light y dark no funciona, tengo que forzar el color directo! así: */
+    [data-theme="dark"] .form-group select option {
+      background-color: #424242ff;
+      color: #f5f5f5;
+    }
+    [data-theme="light"] .form-group select option {
+      background-color: #ffffff;
+      color: #222;
+    }
+
 
     .form-crear-usuario button[type="submit"] {
       padding: 0.75rem 1.5rem;
