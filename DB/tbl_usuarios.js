@@ -14,7 +14,7 @@ export let tbl_usuarios = {
       id: 2,
       nombre: "Lucía",
       apellido: "Martínez",
-      usuario: "lmartinez",
+      usuario: "lumartinez",
       email: "lucia.martinez@mail.com",
       rol: "Administrador",
       activo: true
@@ -23,7 +23,7 @@ export let tbl_usuarios = {
       id: 3,
       nombre: "Julián",
       apellido: "Pérez",
-      usuario: "jperez",
+      usuario: "juliperez",
       email: "julian.perez@mail.com",
       rol: "Vendedor",
       activo: false
@@ -32,7 +32,7 @@ export let tbl_usuarios = {
       id: 4,
       nombre: "Sofía",
       apellido: "Gómez",
-      usuario: "sgomez",
+      usuario: "sofgomez",
       email: "sofia.gomez@mail.com",
       rol: "Supervisor",
       activo: true
@@ -41,7 +41,7 @@ export let tbl_usuarios = {
       id: 5,
       nombre: "Martín",
       apellido: "Rodríguez",
-      usuario: "mrodriguez",
+      usuario: "marrodriguez",
       email: "martin.rodriguez@mail.com",
       rol: "Vendedor",
       activo: true
@@ -59,7 +59,7 @@ export let tbl_usuarios = {
       id: 7,
       nombre: "Diego",
       apellido: "López",
-      usuario: "dlopez",
+      usuario: "dielopez",
       email: "diego.lopez@mail.com",
       rol: "Administrador",
       activo: true
@@ -68,7 +68,7 @@ export let tbl_usuarios = {
       id: 8,
       nombre: "Valentina",
       apellido: "Ruiz",
-      usuario: "vruiz",
+      usuario: "valenruiz",
       email: "valentina.ruiz@mail.com",
       rol: "Vendedor",
       activo: false
