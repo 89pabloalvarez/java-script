@@ -6,5 +6,5 @@ export const tbl_form_createuser = {
         { label: 'Usuario', name: 'usuario', validate: 'validateUserInput' },
         { label: 'Rol *', name: 'rol' }
     ],
-  roles_list: ['Administrador', 'Editor', 'Visualizador']
+  roles_list: ['Administrador', 'Vendedor', 'Visualizador']
 }
