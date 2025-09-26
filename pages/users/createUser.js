@@ -43,7 +43,7 @@ export function createUser() {
       // Opciones de rol
       tbl_form_createuser.roles_list.forEach(rol => {
         const option = document.createElement('option')
-        option.value = rol.toLowerCase()
+        option.value = rol
         option.textContent = rol
         input.appendChild(option)
       })

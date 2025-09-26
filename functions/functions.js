@@ -122,8 +122,7 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
     const input = formElement.querySelector(`#${name}`)
 
     if (name === 'rol') { // En el caso de "rol" verifico que sea uno de los roles válidos.
-      const rolesValidos = tbl_form_createuser.roles_list.map(r => r.toLowerCase())
-      selectValid = rolesValidos.includes(input.value.toLowerCase())
+      selectValid = tbl_form_createuser.roles_list.includes(input.value)
     } else {
       selectValid = input.value.trim() !== ''
     }
