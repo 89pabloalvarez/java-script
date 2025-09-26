@@ -216,7 +216,7 @@ export function mainStyle() {
 
     .btn-agregar {
       background-color: var(--verde-primario);
-      color: var(--blanco-primario);
+      color: #f5f5f5;
       border: none;
       padding: 0.6rem 1.2rem;
       font-size: 1rem;
