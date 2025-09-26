@@ -1,8 +1,9 @@
 import { createUserStyle } from '../../components/styles/styles.js'
 import { tbl_form_createuser } from '../../DB/tbl_form_createuser.js'
-import { onlyLetters, validateUserInput, validateCreateUserForm, goToHome, clearForm } from '../../functions/functions.js'
+import { setStoredTheme, onlyLetters, validateUserInput, validateCreateUserForm, goToHome, clearForm } from '../../functions/functions.js'
 
 export function createUser() {
+  setStoredTheme()
   //Creamos el título principal.
   const titulo = document.createElement('h2')
   titulo.textContent = 'Crear Nuevo Usuario'

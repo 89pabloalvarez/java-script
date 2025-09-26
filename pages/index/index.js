@@ -1,4 +1,7 @@
+import { setStoredTheme } from "../../functions/functions.js"
+
 export async function index() {
+  setStoredTheme()
   const titulo = document.createElement('h2')
   titulo.textContent = 'Listado de Usuarios'
   titulo.classList.add('main-title')

@@ -18,7 +18,7 @@ export function renderHeader() {
   const themeToggleBtn = document.createElement('button')
   themeToggleBtn.id = 'header-themeToggleBtn'
   themeToggleBtn.classList.add('theme-toggle-btn')
-  themeToggleBtn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? 'MODO DÍA' : 'MODO NOCHE'
+  themeToggleBtn.textContent = localStorage.getItem('theme-preference') === 'dark' ? 'MODO DÍA' : 'MODO NOCHE'
   themeToggleBtn.addEventListener('click', toggleTheme)
 
   //Inyectamos el botón dentro del bloque izquierdo.
