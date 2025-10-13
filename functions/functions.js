@@ -146,14 +146,10 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
     inputValid = inputValid && isValid
 
     // Validación de usuario duplicado
-    const usuarioDuplicado = storedData.some(user => user.usuario?.toLowerCase() === usuarioValue.toLowerCase())
-
-    if (usuarioDuplicado) {
+    if (storedData.some(user => user.usuario?.toLowerCase() === usuarioValue.toLowerCase())) {
       usuarioInput.classList.add('input-error')
-      showToastMessage(`El usuario "${usuarioValue}" ya se encuentra registrado`, 'error')
+      showToastMessage(`El usuario "${usuarioValue}" ya se encuentra registrado`, 'warning')
       inputValid = false
-    } else {
-      usuarioInput.classList.remove('input-error')
     }
   }
 
@@ -162,14 +158,9 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
   const emailValue = emailInput.value.trim()
 
   if (emailValue !== '') {
-    const emailDuplicado = storedData.some(user => user.email?.toLowerCase() === emailValue.toLowerCase())
-
-    if (emailDuplicado) {
-      emailInput.classList.add('input-error')
-      showToastMessage(`El mail "${emailValue}" ya se encuentra registrado`, 'error')
+    if (storedData.some(user => user.email?.toLowerCase() === emailValue.toLowerCase())) {
+      showToastMessage(`El mail "${emailValue}" ya se encuentra registrado`, 'warning')
       inputValid = false
-    } else {
-      emailInput.classList.remove('input-error')
     }
   }
 
@@ -181,23 +172,23 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
     localStorage.setItem('tableUsersData', JSON.stringify(storedData))
     localStorage.setItem('userCreated', 'true')
 
-    showToastMessage('Datos del formulario válidos.', 'success', 'center')
+    showToastMessage('Datos del formulario válidos.', 'success', 'center', 1)
     setTimeout(() => {
       goToHome()
-    }, 2000)
+    }, 1500)
   }
 
   return inputValid
 }
 
-export function showToastMessage(message, type = 'info', position = 'top-end') {
+export function showToastMessage(message, type = 'info', position = 'top-end', tiempo = 8) {
   Swal.fire({
     toast: true,
     position: position,
     icon: type,
     title: message,
     showConfirmButton: false,
-    timer: 8000,
+    timer: tiempo * 1000,
     timerProgressBar: true,
     customClass: {
       popup: 'swal2-toast'
