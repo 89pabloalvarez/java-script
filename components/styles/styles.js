@@ -183,6 +183,21 @@ export function headerStyle() {
       background-color: var(--header-bg-gradient);
       color: var(--header-text-color);
     }
+
+    .header-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-left: 1rem;
+      font-size: 0.85rem;
+      color: var(--header-text-color);
+    }
+
+    #header-weather,
+    #header-time {
+      margin: 2px 0;
+    }
+
   `;
 }
 

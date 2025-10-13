@@ -3,6 +3,10 @@ import { tbl_form_createuser } from '../DB/tbl_form_createuser.js'
 // Creamos una key-name para luego almacenar el tema que prefiere en la localStorage.
 const THEME_KEY = 'theme-preference'
 
+// 
+// FUNCIONES EXPORTADAS
+//
+
 // Función para aplicar el tema almacenado en localStorage al cargar la página.
 export function setStoredTheme() {
   const storedTheme = localStorage.getItem(THEME_KEY)
@@ -229,4 +233,36 @@ function isLocalHost() {
     window.location.hostname === 'localhost' ||
     /^(\d{1,3}\.){3}\d{1,3}$/.test(window.location.hostname)
   )
+}
+
+// 
+// FUNCIONES EXTERNAS
+//
+
+// Obtengo el clima actual desde la API de Meteosource de Buenos Aires, Argentina.
+export async function getCurrentWeather() {
+  const res = await fetch('https://www.meteosource.com/api/v1/free/point?place=buenos-aires&sections=current&timezone=America/Argentina/Buenos_Aires&language=es&units=metric&key=NO_TENGO_API_KEY_DEJO_ESTO_ASI_A_PROPOSITO') // Dejo api rota a propósito para demostrar que no se me rompe la página.
+  const data = await res.json()
+  const { temperature, weather } = data.current // Extraigo temperatura y descripción del clima.
+  return `${temperature}°C, ${weather}`
+}
+
+export function updateWeather() {
+  getCurrentWeather().then(weather => {
+    document.getElementById('header-weather').textContent = "Clima Actual: " + weather // Actualizo el span con el clima actual.
+  })
+}
+
+// Obtengo la hora actual desde la API de WorldTimeAPI de Buenos Aires, Argentina.
+export async function getCurrentTime() {
+  const res = await fetch('https://worldtimeapi.org/api/timezone/America/Argentina/Buenos_Aires') // Uso la API pública de WorldTimeAPI para obtener la hora actual en Buenos Aires.
+  const data = await res.json()
+  const time = new Date(data.datetime).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }) // Formateo la hora a formato HH:MM con el encode de Argentina.
+  return time
+}
+
+export function updateTime() {
+  getCurrentTime().then(time => {
+    document.getElementById('header-time').textContent = "Hora Actual: " + time // Actualizo el span con la hora actual.
+  })
 }

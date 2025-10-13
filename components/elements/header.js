@@ -1,4 +1,4 @@
-import { toggleTheme, goToHome } from '../../functions/functions.js'
+import { toggleTheme, goToHome, updateWeather, updateTime } from '../../functions/functions.js'
 import { headerStyle } from '../styles/styles.js'
 
 export function renderHeader() {
@@ -23,6 +23,28 @@ export function renderHeader() {
 
   //Inyectamos el botón dentro del bloque izquierdo.
   leftDiv.appendChild(themeToggleBtn)
+
+  // Contenedor para clima y hora
+  const infoDiv = document.createElement('div')
+  infoDiv.classList.add('header-info')
+
+  // Span para el clima
+  const weatherSpan = document.createElement('span')
+  weatherSpan.id = 'header-weather'
+  weatherSpan.textContent = 'Cargando clima...'
+
+  // Span para la hora
+  const timeSpan = document.createElement('span')
+  timeSpan.id = 'header-time'
+  timeSpan.textContent = 'Cargando hora...'
+
+  // Inyectamos los spans en el contenedor
+  infoDiv.appendChild(weatherSpan)
+  infoDiv.appendChild(timeSpan)
+
+  // Inyectamos el contenedor en el bloque izquierdo
+  leftDiv.appendChild(infoDiv)
+  updateTime()
 
   //Creamos el bloque central con el título.
   const centerDiv = document.createElement('div')
@@ -56,6 +78,14 @@ export function renderHeader() {
   const styleTag = document.createElement('style')
   styleTag.textContent = headerStyle()
   document.head.appendChild(styleTag)
+
+  // Actualizamos clima (cada media hora)
+  updateWeather()
+  setInterval(updateWeather, 300000)
+
+  // Actualizamos hora (cada minuto)
+  updateTime()
+  setInterval(updateTime, 60000)
 
   //Devolvemos el header para luego inyectarlo en el layout.
   return header
