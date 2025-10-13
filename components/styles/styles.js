@@ -78,39 +78,28 @@ export function commonStyle() {
       flex-direction: column;
     }
 
-    .success-modal {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: var(--alert-success-bg);
-      color: white;
-      padding: 12px 20px;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      font-weight: bold;
-      z-index: 1000;
-      animation: fadeInOut 10s ease forwards;
-    }
-
-    .warning-modal {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: var(--alert-warning-bg);
-      color: #222;
-      padding: 12px 20px;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      font-weight: bold;
-      z-index: 1000;
-      animation: fadeInOut 8s ease forwards;
-    }
-
     @keyframes fadeInOut {
       0% { opacity: 0; transform: translateY(-10px); }
       10% { opacity: 1; transform: translateY(0); }
       90% { opacity: 1; }
       100% { opacity: 0; transform: translateY(-10px); }
+    }
+
+    .swal2-toast {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 1rem;
+      background-color: var(--main-text-color);
+      color: var(--main-bg-color);
+    }
+
+    .swal2-icon.swal2-warning {
+      color: var(--alert-warning-bg);
+    }
+    .swal2-icon.swal2-success {
+      color: var(--alert-success-bg);
+    }
+    .swal2-icon.swal2-error {
+      color: var(--alert-error-bg);
     }
 
   `;

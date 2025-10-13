@@ -3,7 +3,7 @@ import { renderHeader } from '../../components/elements/header.js'
 import { renderMain } from '../../components/elements/main.js'
 import { renderFooter } from '../../components/elements/footer.js'
 import { index } from '../../pages/index/index.js'
-import { showSuccessMessage } from '../../functions/functions.js'
+import { showToastMessage } from '../../functions/functions.js'
 import { tbl_usuarios } from '../../DB/tbl_usuarios.js'
 
 export async function renderIndex() {
@@ -37,7 +37,7 @@ export async function renderIndex() {
   app.appendChild(footer)
 
   if (localStorage.getItem('userCreated') === 'true') {
-    showSuccessMessage('Creación de Usuario Exitosa')
+    showToastMessage('Creación de Usuario Exitosa', 'success')
     localStorage.removeItem('userCreated')
   }
 }

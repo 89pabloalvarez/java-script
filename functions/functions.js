@@ -150,7 +150,7 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
 
     if (usuarioDuplicado) {
       usuarioInput.classList.add('input-error')
-      showWarningMessage(`El usuario "${usuarioValue}" ya se encuentra registrado`)
+      showToastMessage(`El usuario "${usuarioValue}" ya se encuentra registrado`, 'error')
       inputValid = false
     } else {
       usuarioInput.classList.remove('input-error')
@@ -166,7 +166,7 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
 
     if (emailDuplicado) {
       emailInput.classList.add('input-error')
-      showWarningMessage(`El mail "${emailValue}" ya se encuentra registrado`)
+      showToastMessage(`El mail "${emailValue}" ya se encuentra registrado`, 'error')
       inputValid = false
     } else {
       emailInput.classList.remove('input-error')
@@ -181,44 +181,29 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
     localStorage.setItem('tableUsersData', JSON.stringify(storedData))
     localStorage.setItem('userCreated', 'true')
 
-    showSuccessMessage('Datos del formulario válidos.')
+    showToastMessage('Datos del formulario válidos.', 'success', 'center')
     setTimeout(() => {
       goToHome()
-    }, 3000)
-    console.log('Nuevo usuario agregado:', nuevoUsuario)
+    }, 2000)
   }
 
   return inputValid
 }
 
-export function showSuccessMessage(message) {
-  // Creo un modal simple que desaparece solo después de unos segundos.
-  const modal = document.createElement('div')
-  modal.classList.add('success-modal')
-  modal.textContent = message
-
-  // Inyecto
-  document.body.appendChild(modal)
-
-  // Con un pequeño timeout le muestro al usuario el mensaje y luego lo saco.
-  setTimeout(() => {
-    modal.remove()
-  }, 10000)
+export function showToastMessage(message, type = 'info', position = 'top-end') {
+  Swal.fire({
+    toast: true,
+    position: position,
+    icon: type,
+    title: message,
+    showConfirmButton: false,
+    timer: 8000,
+    timerProgressBar: true,
+    customClass: {
+      popup: 'swal2-toast'
+    }
+  });
 }
-
-// Con ésta función muestro un mensaje de advertencia visual (similar al success-modal).
-export function showWarningMessage(message) {
-  const modal = document.createElement('div')
-  modal.classList.add('warning-modal')
-  modal.textContent = message
-
-  document.body.appendChild(modal)
-
-  setTimeout(() => {
-    modal.remove()
-  }, 8000)
-}
-
 
 // Con ésta función limpio todos los campos del formulario de creación de usuario.
 export function clearForm(formElement) {
