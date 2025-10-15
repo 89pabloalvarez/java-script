@@ -42,6 +42,11 @@ export async function index() {
       filaEncabezado.appendChild(th)
     })
 
+    const thEditar = document.createElement('th')
+    thEditar.textContent = 'Editar'
+    thEditar.classList.add('tabla-th')
+    filaEncabezado.appendChild(thEditar)
+
     thead.appendChild(filaEncabezado)
     tabla.appendChild(thead)
 
@@ -68,11 +73,26 @@ export async function index() {
         fila.appendChild(td)
       })
 
+      const tdEditar = document.createElement('td')
+      tdEditar.classList.add('tabla-td')
+
+      const enlaceEditar = document.createElement('a')
+      enlaceEditar.href = `./pages/users/editUser.html?id=${user.id}`
+      enlaceEditar.title = 'Editar Usuario ID: ' + user.id
+
+      const iconoLapiz = document.createElement('i')
+      iconoLapiz.classList.add('bi', 'bi-pencil-square') 
+
+      enlaceEditar.appendChild(iconoLapiz)
+      tdEditar.appendChild(enlaceEditar)
+      fila.appendChild(tdEditar)
+
       tbody.appendChild(fila)
     })
 
     tabla.appendChild(tbody)
     tablaContenedor.appendChild(tabla)
+
   } catch (error) {
     tablaContenedor.textContent = 'Error al cargar los datos.'
     console.error(error)
