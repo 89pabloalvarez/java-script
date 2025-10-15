@@ -240,11 +240,11 @@ function isLocalHost() {
 //
 
 // Obtengo el clima actual desde la API de Meteosource de Buenos Aires, Argentina.
-export async function getCurrentWeather() {
-  const res = await fetch('https://www.meteosource.com/api/v1/free/point?place=buenos-aires&sections=current&timezone=America/Argentina/Buenos_Aires&language=es&units=metric&key=NO_TENGO_API_KEY_DEJO_ESTO_ASI_A_PROPOSITO') // Dejo api rota a propósito para demostrar que no se me rompe la página.
+export async function getCurrentWeather() { // docu: https://www.meteosource.com/es/documentation
+  const res = await fetch('https://www.meteosource.com/api/v1/free/point?place_id=buenos-aires&sections=current&language=en&units=auto&key=mr7rzxg6sbj14mxrijdj7x4m012dplhw8fbwdvv9')
   const data = await res.json()
-  const { temperature, weather } = data.current // Extraigo temperatura y descripción del clima.
-  return `${temperature}°C, ${weather}`
+  const { temperature } = data.current // Extraigo temperatura y descripción del clima.
+  return `${temperature}°C`
 }
 
 export function updateWeather() {
@@ -254,7 +254,7 @@ export function updateWeather() {
 }
 
 // Obtengo la hora actual desde la API de WorldTimeAPI de Buenos Aires, Argentina.
-export async function getCurrentTime() {
+export async function getCurrentTime() { // docu: http://worldtimeapi.org/pages/examples
   const res = await fetch('https://worldtimeapi.org/api/timezone/America/Argentina/Buenos_Aires') // Uso la API pública de WorldTimeAPI para obtener la hora actual en Buenos Aires.
   const data = await res.json()
   const time = new Date(data.datetime).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }) // Formateo la hora a formato HH:MM con el encode de Argentina.
