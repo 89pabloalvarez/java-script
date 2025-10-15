@@ -1,6 +1,6 @@
 import { createUserStyle } from '../../components/styles/styles.js'
 import { tbl_form_createuser } from '../../DB/tbl_form_createuser.js'
-import { setStoredTheme, onlyLetters, validateUserInput, validateCreateUserForm, goToHome, clearForm } from '../../functions/functions.js'
+import { setStoredTheme, onlyLetters, validateUserInput, validateCreateUserForm, goToHome, clearCreateForm } from '../../functions/functions.js'
 
 export function createUser() {
   setStoredTheme()
@@ -107,22 +107,15 @@ export function createUser() {
   })
 
   btnLimpiar.addEventListener('click', () => {
-    clearForm(formulario)
+    clearCreateForm(formulario)
   })
 
   //Evento de envío del formulario
   formulario.addEventListener('submit', e => {
     e.preventDefault()
+    //Invocamos a la función de validación y creación de usuario.
+    validateCreateUserForm(formulario)
 
-    const isValid = validateCreateUserForm(formulario)
-
-    if (isValid) {
-      // Podés limpiar el formulario, mostrar mensaje, o actualizar la tabla
-      formulario.reset()
-      console.log('Formulario válido. Usuario creado.')
-    } else {
-      console.log('Formulario inválido. Revisar campos obligatorios.')
-    }
   })
 
   //Aclaración sobre los campos obligatorios.
