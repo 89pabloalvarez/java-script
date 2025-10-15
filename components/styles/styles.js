@@ -30,6 +30,9 @@ export function commonStyle() {
       --alert-success-bg: #4caf50;
       --alert-warning-bg: #f9fd04ff;
       --alert-error-bg: #ce2d3aff;
+
+      --azul-primario: #2196f3;
+      --azul-secundario: #0a74da;
     }
 
     [data-theme="dark"] {
@@ -53,6 +56,9 @@ export function commonStyle() {
 
       --amarillo-primario: #968e02ff;
       --amarillo-secundario: #fff700ff;
+
+      --azul-primario: #0a74da;
+      --azul-secundario: #2196f3;
     }
 
     * {
@@ -281,6 +287,18 @@ export function mainStyle() {
       background-color: var(--alert-error-bg);
     }
 
+    a .bi-pencil-square {
+      display: inline-block;
+      font-size: 1.2rem;
+      color: var(--azul-primario);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    a:hover .bi-pencil-square {
+      transform: scale(1.5);
+      color: var(--azul-secundario);
+    }
+
   `;
 }
 
@@ -471,11 +489,11 @@ export function createUserStyle() {
       color: black;
     }
 
-    #btn-crear {
+    #btn-crear, #btn-editar {
       background: var(--verde-primario);
     }
 
-    #btn-crear:hover {
+    #btn-crear:hover, #btn-editar:hover {
       background: var(--verde-secundario);
       color: black;
     }
