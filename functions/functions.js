@@ -152,7 +152,7 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
     // Validación de usuario duplicado
     if (storedData.some(user => user.usuario?.toLowerCase() === usuarioValue.toLowerCase())) {
       usuarioInput.classList.add('input-error')
-      showToastMessage(`El usuario "${usuarioValue}" ya se encuentra registrado`, 'warning')
+      showToastMessage(`El usuario "${usuarioValue}" ya se encuentra registrado`, 'warning', 'center', 3)
       inputValid = false
     }
   }
@@ -163,7 +163,7 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
 
   if (emailValue !== '') {
     if (storedData.some(user => user.email?.toLowerCase() === emailValue.toLowerCase())) {
-      showToastMessage(`El mail "${emailValue}" ya se encuentra registrado`, 'warning')
+      showToastMessage(`El mail "${emailValue}" ya se encuentra registrado`, 'warning', 'center', 3)
       inputValid = false
     }
   }
@@ -181,8 +181,101 @@ export function validateCreateUserForm(formElement) { // Independientemente de l
       goToHome()
     }, 1500)
   }
+}
 
-  return inputValid
+export function validateEditUserForm(formElement, id) {
+  const storedData = JSON.parse(localStorage.getItem('tableUsersData')) || []
+  let inputValid = true
+
+  const requiredFields = ['nombre', 'apellido', 'email', 'rol', 'activo']
+
+  // Recorro los campos obligatorios para verificar que no estén vacíos.
+  requiredFields.forEach(name => {
+    const input = formElement.querySelector(`#${name}`)
+    if (!input) return
+
+    let isValid = true
+
+    const value = input.value.trim()
+
+    // Validación para los select "rol" y "activo"
+    if (name === 'rol') {
+      isValid = tbl_form_createuser.roles_list.includes(value)
+    } else if (name === 'activo') {
+      isValid = ['true', 'false'].includes(value)
+    } else { // Por las dudas si algun hackermannnn intenta enviar un campo vacío. (aunque el select no lo permite)
+      isValid = value !== ''
+    }
+
+    // Todo esto es igual que en createUserForm
+    input.classList.toggle('input-error', !isValid)
+    inputValid = inputValid && isValid
+  })
+
+  // Validación de usuario
+  const usuarioInput = formElement.querySelector('#usuario')
+  const usuarioValue = usuarioInput?.value.trim()
+  if (usuarioValue) {
+    const cleaned = usuarioValue.replace(/\s/g, '') // Le saco espacios
+    const lengthValid = cleaned.length >= 8 && cleaned.length <= 15 // Valido la longitud, todo igual que en createUserForm
+    const noSpaces = cleaned === usuarioValue
+
+    // Hacemos el cambiazo si la longitud es correcta y no tiene espacios...
+    const formatoValido = lengthValid && noSpaces
+    usuarioInput.classList.toggle('input-error', !formatoValido)
+    inputValid = inputValid && formatoValido
+
+    // Validación de usuario duplicado (excluyendo el usuario que se está editando)
+    const duplicado = storedData.some(user =>
+      String(user.id) !== String(id) &&
+      user.usuario?.toLowerCase() === usuarioValue.toLowerCase()
+    )
+
+    // Si esta duplicado, MAAAAAAL!! meto error.
+    if (duplicado) {
+      usuarioInput.classList.add('input-error')
+      showToastMessage(`El usuario editado "${usuarioValue}" ya está registrado.`, 'warning', 'center', 3)
+      inputValid = false
+    }
+  }
+
+  // Validación de email
+  const emailInput = formElement.querySelector('#email')
+  const emailValue = emailInput?.value.trim() // El ? es por las dudas que no exista el input (no debería pasar)
+  if (emailValue) {
+    const duplicado = storedData.some(user =>
+      String(user.id) !== String(id) &&
+      user.email?.toLowerCase() === emailValue.toLowerCase()
+    )
+
+    // Si esta duplicado, MAAAAL!! meto error otra vez.
+    if (duplicado) {
+      emailInput.classList.add('input-error')
+      showToastMessage(`El mail editado "${emailValue}" ya está registrado`, 'warning', 'center', 3)
+      inputValid = false
+    }
+  }
+
+  // Si todo es válido, actualizo el usuario en la "DB".
+  if (inputValid) {
+    const formData = new FormData(formElement)
+    const nuevoUsuario = { id }
+
+    for (const [key, value] of formData.entries()) {
+      nuevoUsuario[key] = key === 'activo' ? value === 'true' : value
+    }
+
+    const index = storedData.findIndex(user => String(user.id) === String(id))
+    storedData[index] = nuevoUsuario
+    localStorage.setItem('tableUsersData', JSON.stringify(storedData))
+    localStorage.setItem('userEdited', 'true')
+
+    showToastMessage('Cambios guardados correctamente.', 'success', 'center', 3)
+    setTimeout(() => {
+      goToHome()
+    }, 1500)
+  }
+
 }
 
 export function showToastMessage(message, type = 'info', position = 'top-end', tiempo = 8) {
@@ -197,11 +290,11 @@ export function showToastMessage(message, type = 'info', position = 'top-end', t
     customClass: {
       popup: 'swal2-toast'
     }
-  });
+  })
 }
 
 // Con ésta función limpio todos los campos del formulario de creación de usuario.
-export function clearForm(formElement) {
+export function clearCreateForm(formElement) {
   // Recorro todos los inputs definidos en tbl_form_createuser.fields
   const campos = tbl_form_createuser.fields.map(f => f.name)
 
@@ -218,6 +311,21 @@ export function clearForm(formElement) {
     }
 
     // Limpio errores visuales y validaciones personalizadas
+    input.classList.remove('input-error')
+    input.setCustomValidity('')
+  })
+}
+
+export function clearEditUserForm(formElement, id) {
+  const data = JSON.parse(localStorage.getItem('tableUsersData')) || []
+  const usuario = data.find(u => String(u.id) === String(id))
+  if (!usuario) return
+
+  Object.entries(usuario).forEach(([key, value]) => {
+    const input = formElement.querySelector(`#${key}`)
+    if (!input) return
+
+    input.value = typeof value === 'boolean' ? String(value) : value
     input.classList.remove('input-error')
     input.setCustomValidity('')
   })
